@@ -94,4 +94,18 @@ public class Venta {
     public void setEstadoVenta(EstadoVenta estadoVenta) {
         this.estadoVenta = estadoVenta;
     }
+
+    //METODOS GENERALES DE VENTA
+    public double calcularValorFinal(){
+        return 0;
+    }
+
+    public void cancelarVenta(){
+        setEstadoVenta(EstadoVenta.CANCELADA);
+        asiento.marcarAsientoDisponible();
+    }
+
+    public boolean verificarEstadoVenta(){
+        return estadoVenta == EstadoVenta.ACTIVA;
+    }
 }
