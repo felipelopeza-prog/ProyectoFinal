@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,5 +82,143 @@ public class Cine {
         this.listaEmpleados = listaEmpleados;
     }
 
+    //PELICULAS
+    public void registrarPelicula(Pelicula nuevaPelicula){
 
+    }
+
+    public boolean verificarPelicula(String codigo){
+        return true;
+    }
+
+    public Pelicula buscarPelicula(String codigo){
+        return null;
+    }
+
+    public void modificarPelicula(String codigo, String nuevoNombre, Genero nuevoGenero, int nuevaDuracion,
+                                  Clasificacion nuevaClasificacion){
+
+    }
+
+    public void deshabilitarPelicula(String codigo){
+
+    }
+
+    public void consultarPeliculasDisponibles(){
+
+    }
+
+    //SALAS
+    public void registrarSala(Sala sala){
+
+    }
+
+    public boolean verificarSala(String codigo){
+        return true;
+    }
+
+    public Sala buscarSala(String codigo){
+        return null;
+    }
+
+    public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
+
+    }
+
+    public void deshabilitarSala(String codigo){
+
+    }
+
+    public void consultarSalas(){
+
+    }
+
+    //FUNCIONES
+    public void registrarFuncion(Funcion funcion){
+
+    }
+
+    public boolean verificarFuncion(String codigo){
+        return true;
+    }
+
+    public Funcion buscarFuncion(String codigo){
+        return null;
+    }
+
+    public void modificarFuncion(String codigo, Pelicula nuevaPelicula, Sala nuevaSala, LocalDateTime nuevaFechaHora, double valorBase){
+
+    }
+
+    public void consultarFunciones(){
+
+    }
+
+    public void consultarFuncionesPorFecha(){
+
+    }
+
+    public void cancelarFuncion(String codigo){
+
+    }
+
+    //CLIENTES
+    public void registrarCliente(Cliente cliente){
+
+    }
+
+    public boolean verificarCliente(String documento){
+        return true;
+    }
+
+    public Cliente buscarCliente(String documento){
+        return null;
+    }
+
+    //EMPLEADO
+    public void registrarEmpleado(Empleado empleado){
+
+    }
+
+    public boolean verificarEmpleado(String documento){
+        return true;
+    }
+
+    public Empleado buscarEmpleado(String documento){
+        return null;
+    }
+
+    //VENTAS
+    public void registrarVenta(Venta venta){
+
+    }
+
+    public boolean verificarVenta(String codigo){
+        return true;
+    }
+
+    public Venta buscarVenta(String codigo){
+        return null;
+    }
+
+    public void cancelarVenta(String codigo){
+
+    }
+
+    //METODOS GENERALES DE CINE
+    public int obtenerTotalEntradasVendidas(){
+        return 0;
+    }
+
+    public double obtenerTotalIngresos(){
+        return 0;
+    }
+
+    public Pelicula obtenerPeliculaMasVendida(){
+        return null;
+    }
+
+    public void mostrarReporteOcupacionFuncion(String codigo){
+
+    }
 }
