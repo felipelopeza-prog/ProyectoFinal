@@ -71,4 +71,17 @@ public class Asiento {
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
+
+    //METODOS GENERALES DE ASIENTO
+    public boolean verificarDisponibilidad(){
+        return estadoAsiento == EstadoAsiento.DISPONIBLE;
+    }
+
+    public void marcarAsientoOcupado(){
+        setEstadoAsiento(EstadoAsiento.OCUPADO);
+    }
+
+    public void marcarAsientoDisponible(){
+        setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+    }
 }
