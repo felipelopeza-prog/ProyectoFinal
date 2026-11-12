@@ -101,6 +101,12 @@ public class Cine {
     }
 
     public Pelicula buscarPelicula(String codigo){
+        for(Pelicula pelicula : listaPeliculas){
+            if(pelicula.getCodigo().equals(codigo)){
+                return pelicula;
+            }
+        }
+        System.out.println("Pelicula no encontrada");
         return null;
     }
 
@@ -136,6 +142,12 @@ public class Cine {
     }
 
     public Sala buscarSala(String codigo){
+        for(Sala sala : listaSalas){
+            if(sala.getCodigo().equals(codigo)){
+                return sala;
+            }
+        }
+        System.out.println("Sala no encontrada");
         return null;
     }
 
@@ -170,6 +182,12 @@ public class Cine {
     }
 
     public Funcion buscarFuncion(String codigo){
+        for(Funcion funcion : listaFunciones){
+            if(funcion.getCodigo().equals(codigo)){
+                return funcion;
+            }
+        }
+        System.out.println("Funcion no encontrada");
         return null;
     }
 
@@ -208,6 +226,12 @@ public class Cine {
     }
 
     public Cliente buscarCliente(String identificacion){
+        for(Cliente cliente : listaClientes){
+            if(cliente.getIdentificacion().equals(identificacion)){
+                return cliente;
+            }
+        }
+        System.out.println("Cliente no encontrado (se recomienda registrar el cliente)");
         return null;
     }
 
@@ -230,6 +254,12 @@ public class Cine {
     }
 
     public Empleado buscarEmpleado(String identificacion){
+        for(Empleado empleado : listaEmpleados){
+            if(empleado.getIdentificacion().equals(identificacion)){
+                return empleado;
+            }
+        }
+        System.out.println("Empleado no encontrada");
         return null;
     }
 
@@ -252,6 +282,12 @@ public class Cine {
     }
 
     public Venta buscarVenta(String codigo){
+        for(Venta venta : listaVentas){
+            if(venta.getCodigo().equals(codigo)){
+                return venta;
+            }
+        }
+        System.out.println("Venta no encontrada");
         return null;
     }
 
