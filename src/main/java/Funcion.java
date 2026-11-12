@@ -93,4 +93,26 @@ public class Funcion {
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
     }
+
+    //METODOS GENERALES DE FUNCION
+    public Asiento buscarAsiento(String codigo){
+        return null;
+    }
+
+    public void ocuparAsiento(String codigo){
+
+    }
+
+    public void liberarAsiento(String codigo){
+
+    }
+
+    public int contarAsientosDisponibles(){
+        return 0;
+    }
+
+    public boolean verificarDisponibilidadAsientos(){
+        return contarAsientosDisponibles() > 0;
+    }
+
 }
