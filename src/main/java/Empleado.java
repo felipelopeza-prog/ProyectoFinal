@@ -31,4 +31,25 @@ public class Empleado extends Persona {
     public void setRolEmpleado(RolEmpleado rolEmpleado) {
         this.rolEmpleado = rolEmpleado;
     }
+
+    //METODOS GENERALES DE EMPLEADO
+    public boolean verificarRolAdministrador(){
+        return rolEmpleado == RolEmpleado.ADMINISTRADOR;
+    }
+
+    public boolean validarUsuarioContrasenia(String usuario, String contrasenia){
+        if(getUsuario().equals(usuario)){
+            if(getContrasenia().equals(contrasenia)){
+                System.out.println("Usuario y contraseña verificados: Bienvenido " + usuario);
+                return true;
+            } else {
+                System.out.println("contraseña incorrecta, intentelo denuevo");
+                return false;
+            }
+        } else {
+            System.out.println("Este usuario no existe en la base de datos de la empresa");
+            return false;
+        }
+    }
+
 }
