@@ -1,4 +1,9 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Pelicula {
+    private Cine cine;
+
     private String codigo;
     private String nombre;
     private Genero genero;
@@ -6,14 +11,25 @@ public class Pelicula {
     private Clasificacion clasificacion;
     private EstadoPelicula estadoPelicula;
 
-    public Pelicula(String codigo, String nombre, Genero genero,
-                    int duracionMinutos, Clasificacion clasificacion, EstadoPelicula estadoPelicula) {
+    private List<Funcion> listaFunciones;
+
+    public Pelicula(Cine cine, String codigo, String nombre, Genero genero, int duracionMinutos, Clasificacion clasificacion, EstadoPelicula estadoPelicula) {
+        this.cine = cine;
         this.codigo = codigo;
         this.nombre = nombre;
         this.genero = genero;
         this.duracionMinutos = duracionMinutos;
         this.clasificacion = clasificacion;
         this.estadoPelicula = estadoPelicula;
+
+        listaFunciones = new ArrayList<>();
+    }
+
+    public Cine getCine() {
+        return cine;
+    }
+    public void setCine(Cine cine) {
+        this.cine = cine;
     }
 
     public String getCodigo() {
@@ -56,6 +72,13 @@ public class Pelicula {
     }
     public void setEstadoPelicula(EstadoPelicula estadoPelicula) {
         this.estadoPelicula = estadoPelicula;
+    }
+
+    public List<Funcion> getListaFunciones() {
+        return listaFunciones;
+    }
+    public void setListaFunciones(List<Funcion> listaFunciones) {
+        this.listaFunciones = listaFunciones;
     }
 
     @Override
