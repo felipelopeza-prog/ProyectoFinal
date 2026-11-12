@@ -1,25 +1,34 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sala {
 
-//-código
-//-número
-//-capacidad
-//-estado
-//-colección de asientos
+    private Cine cine;
 
     private String codigo;
     private int numero;
     private int capacidad;
     private EstadoSala estadoSala;
-    private List<Asiento> coleccionAsientos;
 
-    public Sala(String codigo, int numero, int capacidad, EstadoSala estadoSala, List<Asiento> coleccionAsientos) {
+    private List<Asiento> coleccionAsientos;
+    private List<Funcion> listaFunciones;
+
+    public Sala(Asiento asiento, Cine cine, String codigo, int numero, int capacidad, EstadoSala estadoSala) {
         this.codigo = codigo;
         this.numero = numero;
         this.capacidad = capacidad;
         this.estadoSala = estadoSala;
-        this.coleccionAsientos = coleccionAsientos;
+
+        coleccionAsientos = new ArrayList<>();
+        coleccionAsientos.add(asiento);
+        listaFunciones = new ArrayList<>();
+    }
+
+    public Cine getCine() {
+        return cine;
+    }
+    public void setCine(Cine cine) {
+        this.cine = cine;
     }
 
     public String getCodigo() {
@@ -55,5 +64,12 @@ public class Sala {
     }
     public void setColeccionAsientos(List<Asiento> coleccionAsientos) {
         this.coleccionAsientos = coleccionAsientos;
+    }
+
+    public List<Funcion> getListaFunciones() {
+        return listaFunciones;
+    }
+    public void setListaFunciones(List<Funcion> listaFunciones) {
+        this.listaFunciones = listaFunciones;
     }
 }
