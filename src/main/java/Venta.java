@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Venta {
@@ -13,20 +14,22 @@ public class Venta {
 
     private String codigo;
     private Cliente cliente;
+    private Empleado empleado;
     private Funcion funcion;
     private Asiento asiento;
-    private LocalDate fecha;
-    private LocalTime horaVenta;
+    private LocalDateTime fechaHoraVenta;
     private double valorPagado;
+    private EstadoVenta estadoVenta;
 
-    public Venta(String codigo, Cliente cliente, Funcion funcion, Asiento asiento, LocalDate fecha, LocalTime horaVenta, double valorPagado) {
+    public Venta(String codigo, Cliente cliente, Empleado empleado, Funcion funcion, Asiento asiento, LocalDateTime fechaHoraVenta, double valorPagado, EstadoVenta estadoVenta) {
         this.codigo = codigo;
         this.cliente = cliente;
+        this.empleado = empleado;
         this.funcion = funcion;
         this.asiento = asiento;
-        this.fecha = fecha;
-        this.horaVenta = horaVenta;
+        this.fechaHoraVenta = fechaHoraVenta;
         this.valorPagado = valorPagado;
+        this.estadoVenta = estadoVenta;
     }
 
     public String getCodigo() {
@@ -43,6 +46,13 @@ public class Venta {
         this.cliente = cliente;
     }
 
+    public Empleado getEmpleado() {
+        return empleado;
+    }
+    public void setEmpleado(Empleado empleado) {
+        this.empleado = empleado;
+    }
+
     public Funcion getFuncion() {
         return funcion;
     }
@@ -57,18 +67,11 @@ public class Venta {
         this.asiento = asiento;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDateTime getFechaHoraVenta() {
+        return fechaHoraVenta;
     }
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalTime getHoraVenta() {
-        return horaVenta;
-    }
-    public void setHoraVenta(LocalTime horaVenta) {
-        this.horaVenta = horaVenta;
+    public void setFechaHoraVenta(LocalDateTime fechaHoraVenta) {
+        this.fechaHoraVenta = fechaHoraVenta;
     }
 
     public double getValorPagado() {
@@ -76,5 +79,12 @@ public class Venta {
     }
     public void setValorPagado(double valorPagado) {
         this.valorPagado = valorPagado;
+    }
+
+    public EstadoVenta getEstadoVenta() {
+        return estadoVenta;
+    }
+    public void setEstadoVenta(EstadoVenta estadoVenta) {
+        this.estadoVenta = estadoVenta;
     }
 }

@@ -19,7 +19,6 @@ public class Pelicula {
     public String getCodigo() {
         return codigo;
     }
-
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
@@ -27,7 +26,6 @@ public class Pelicula {
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -35,7 +33,6 @@ public class Pelicula {
     public Genero getGenero() {
         return genero;
     }
-
     public void setGenero(Genero genero) {
         this.genero = genero;
     }
@@ -43,7 +40,6 @@ public class Pelicula {
     public int getDuracionMinutos() {
         return duracionMinutos;
     }
-
     public void setDuracionMinutos(int duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
     }
@@ -51,7 +47,6 @@ public class Pelicula {
     public Clasificacion getClasificacion() {
         return clasificacion;
     }
-
     public void setClasificacion(Clasificacion clasificacion) {
         this.clasificacion = clasificacion;
     }
@@ -59,7 +54,6 @@ public class Pelicula {
     public EstadoPelicula getEstadoPelicula() {
         return estadoPelicula;
     }
-
     public void setEstadoPelicula(EstadoPelicula estadoPelicula) {
         this.estadoPelicula = estadoPelicula;
     }
