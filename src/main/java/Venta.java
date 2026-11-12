@@ -11,32 +11,34 @@ public class Venta {
 //-fecha
 //-hora de venta
 //-valor pagado
-
-    private String codigo;
+    private Cine cine;
     private Cliente cliente;
     private Empleado empleado;
     private Funcion funcion;
     private Asiento asiento;
+
+    private String codigo;
     private LocalDateTime fechaHoraVenta;
     private double valorPagado;
     private EstadoVenta estadoVenta;
 
-    public Venta(String codigo, Cliente cliente, Empleado empleado, Funcion funcion, Asiento asiento, LocalDateTime fechaHoraVenta, double valorPagado, EstadoVenta estadoVenta) {
-        this.codigo = codigo;
+    public Venta(Cine cine, Cliente cliente, Empleado empleado, Funcion funcion, Asiento asiento, String codigo, LocalDateTime fechaHoraVenta, double valorPagado, EstadoVenta estadoVenta) {
+        this.cine = cine;
         this.cliente = cliente;
         this.empleado = empleado;
         this.funcion = funcion;
         this.asiento = asiento;
+        this.codigo = codigo;
         this.fechaHoraVenta = fechaHoraVenta;
         this.valorPagado = valorPagado;
         this.estadoVenta = estadoVenta;
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Cine getCine() {
+        return cine;
     }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCine(Cine cine) {
+        this.cine = cine;
     }
 
     public Cliente getCliente() {
@@ -65,6 +67,13 @@ public class Venta {
     }
     public void setAsiento(Asiento asiento) {
         this.asiento = asiento;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public LocalDateTime getFechaHoraVenta() {
