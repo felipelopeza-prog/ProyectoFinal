@@ -1,31 +1,14 @@
-public class Cliente {
+public class Cliente extends Persona{
 
 //-identificación
 //-nombre
 //-tipoCliente
 
-    private String identificacion;
-    private String nombre;
     private TipoCliente tipoCliente;
 
     public Cliente(String identificacion, String nombre, TipoCliente tipoCliente) {
-        this.identificacion = identificacion;
-        this.nombre = nombre;
+        super(identificacion, nombre);
         this.tipoCliente = tipoCliente;
-    }
-
-    public String getIdentificacion() {
-        return identificacion;
-    }
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public TipoCliente getTipoCliente() {
