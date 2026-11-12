@@ -83,12 +83,21 @@ public class Cine {
     }
 
     //PELICULAS
-    public void registrarPelicula(Pelicula nuevaPelicula){
-
+    public boolean registrarPelicula(Pelicula nuevaPelicula){
+        if (verificarPelicula(nuevaPelicula.getCodigo())) {
+            return false;
+        }
+        listaPeliculas.add(nuevaPelicula);
+        return true;
     }
 
     public boolean verificarPelicula(String codigo){
-        return true;
+        for (Pelicula pelicula : listaPeliculas) {
+            if (pelicula.getCodigo().equals(codigo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Pelicula buscarPelicula(String codigo){
@@ -109,12 +118,21 @@ public class Cine {
     }
 
     //SALAS
-    public void registrarSala(Sala sala){
-
+    public boolean registrarSala(Sala nuevaSala){
+        if (verificarSala(nuevaSala.getCodigo())) {
+            return false;
+        }
+        listaSalas.add(nuevaSala);
+        return true;
     }
 
     public boolean verificarSala(String codigo){
-        return true;
+        for (Sala sala : listaSalas) {
+            if (sala.getCodigo().equals(codigo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Sala buscarSala(String codigo){
@@ -134,12 +152,21 @@ public class Cine {
     }
 
     //FUNCIONES
-    public void registrarFuncion(Funcion funcion){
-
+    public boolean registrarFuncion(Funcion nuevaFuncion){
+        if (verificarFuncion(nuevaFuncion.getCodigo())) {
+            return false;
+        }
+        listaFunciones.add(nuevaFuncion);
+        return true;
     }
 
     public boolean verificarFuncion(String codigo){
-        return true;
+        for (Funcion funcion : listaFunciones) {
+            if (funcion.getCodigo().equals(codigo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Funcion buscarFuncion(String codigo){
@@ -163,38 +190,65 @@ public class Cine {
     }
 
     //CLIENTES
-    public void registrarCliente(Cliente cliente){
-
-    }
-
-    public boolean verificarCliente(String documento){
+    public boolean registrarCliente(Cliente nuevoCliente){
+        if (verificarCliente(nuevoCliente.getIdentificacion())) {
+            return false;
+        }
+        listaClientes.add(nuevoCliente);
         return true;
     }
 
-    public Cliente buscarCliente(String documento){
+    public boolean verificarCliente(String identificacion){
+        for (Cliente cliente : listaClientes) {
+            if (cliente.getIdentificacion().equals(identificacion)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Cliente buscarCliente(String identificacion){
         return null;
     }
 
     //EMPLEADO
-    public void registrarEmpleado(Empleado empleado){
-
-    }
-
-    public boolean verificarEmpleado(String documento){
+    public boolean registrarEmpleado(Empleado nuevoEmpleado){
+        if (verificarEmpleado(nuevoEmpleado.getIdentificacion())) {
+            return false;
+        }
+        listaEmpleados.add(nuevoEmpleado);
         return true;
     }
 
-    public Empleado buscarEmpleado(String documento){
+    public boolean verificarEmpleado(String identificacion){
+        for (Empleado empleado : listaEmpleados) {
+            if (empleado.getIdentificacion().equals(identificacion)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Empleado buscarEmpleado(String identificacion){
         return null;
     }
 
     //VENTAS
-    public void registrarVenta(Venta venta){
-
+    public boolean registrarVenta(Venta nuevaVenta){
+        if (verificarVenta(nuevaVenta.getCodigo())) {
+            return false;
+        }
+        listaVentas.add(nuevaVenta);
+        return true;
     }
 
     public boolean verificarVenta(String codigo){
-        return true;
+        for (Venta venta : listaVentas) {
+            if (venta.getCodigo().equals(codigo)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public Venta buscarVenta(String codigo){
