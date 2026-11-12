@@ -92,4 +92,17 @@ public class Pelicula {
                 ", estadoPelicula=" + estadoPelicula +
                 '}';
     }
+
+    //METODOS GENEREALES DE PELICULA
+    public boolean verificarDisponibilidad(){
+        return estadoPelicula == EstadoPelicula.DISPONIBLE;
+    }
+
+    public void marcarPeliculaNoDisponible(){
+        setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
+    }
+
+    public void marcarPeliculaDisponible(){
+        setEstadoPelicula(EstadoPelicula.DISPONIBLE);
+    }
 }
