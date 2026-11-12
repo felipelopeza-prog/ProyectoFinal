@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cine {
@@ -12,15 +13,16 @@ public class Cine {
     private List<Cliente> listaClientes;
     private List<Empleado> listaEmpleados;
 
-    public Cine(String nombre, String nit, List<Pelicula> listaPeliculas, List<Sala> listaSalas, List<Funcion> listaFunciones, List<Venta> listaVentas, List<Cliente> listaClientes, List<Empleado> listaEmpleados) {
+    public Cine(String nombre, String nit) {
         this.nombre = nombre;
         this.nit = nit;
-        this.listaPeliculas = listaPeliculas;
-        this.listaSalas = listaSalas;
-        this.listaFunciones = listaFunciones;
-        this.listaVentas = listaVentas;
-        this.listaClientes = listaClientes;
-        this.listaEmpleados = listaEmpleados;
+
+        listaPeliculas = new ArrayList<>();
+        listaSalas = new ArrayList<>();
+        listaFunciones = new ArrayList<>();
+        listaVentas = new ArrayList<>();
+        listaClientes = new ArrayList<>();
+        listaEmpleados = new ArrayList<>();
     }
 
     public String getNombre() {
