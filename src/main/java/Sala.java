@@ -72,4 +72,17 @@ public class Sala {
     public void setListaFunciones(List<Funcion> listaFunciones) {
         this.listaFunciones = listaFunciones;
     }
+
+    //METODOS GENERALES DE SALA
+    public void crearAsientos(int filas, int colummnas){
+
+    }
+
+    public boolean verificarDisponibilidad(){
+        return true;
+    }
+
+    public List<Asiento> clonarAsientos(){
+        return null;
+    }
 }
