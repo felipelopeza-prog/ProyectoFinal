@@ -1,46 +1,49 @@
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Funcion {
 
-//-código
-//-película
-//-sala
-//-fecha
-//-hora
-//-valor base
-//-estado
-
-    private String codigo;
-    private Pelicula Pelicula;
+    private Cine cine;
+    private Pelicula pelicula;
     private Sala sala;
+    private String codigo;
     private LocalDate fecha;
     private LocalTime hora;
     private double valorBase;
     private EstadoFuncion estadoFuncion;
 
-    public Funcion(String codigo, Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora, double valorBase, EstadoFuncion estadoFuncion) {
-        this.codigo = codigo;
-        Pelicula = pelicula;
+    private List<Asiento> listaAsientos;
+    private List<Venta> listaVentas;
+
+    public Funcion(Asiento asiento, Cine cine, Pelicula pelicula, Sala sala, String codigo, LocalDate fecha, LocalTime hora, double valorBase, EstadoFuncion estadoFuncion) {
+        this.cine = cine;
+        this.pelicula = pelicula;
         this.sala = sala;
+        this.codigo = codigo;
         this.fecha = fecha;
         this.hora = hora;
         this.valorBase = valorBase;
         this.estadoFuncion = estadoFuncion;
+
+        listaAsientos = new ArrayList<>();
+        listaAsientos.add(asiento);
+        listaVentas = new ArrayList<>();
     }
 
-    public String getCodigo() {
-        return codigo;
+    public Cine getCine() {
+        return cine;
     }
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setCine(Cine cine) {
+        this.cine = cine;
     }
 
     public Pelicula getPelicula() {
-        return Pelicula;
+        return pelicula;
     }
     public void setPelicula(Pelicula pelicula) {
-        Pelicula = pelicula;
+        this.pelicula = pelicula;
     }
 
     public Sala getSala() {
@@ -48,6 +51,13 @@ public class Funcion {
     }
     public void setSala(Sala sala) {
         this.sala = sala;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public LocalDate getFecha() {
@@ -76,5 +86,19 @@ public class Funcion {
     }
     public void setEstadoFuncion(EstadoFuncion estadoFuncion) {
         this.estadoFuncion = estadoFuncion;
+    }
+
+    public List<Asiento> getListaAsientos() {
+        return listaAsientos;
+    }
+    public void setListaAsientos(List<Asiento> listaAsientos) {
+        this.listaAsientos = listaAsientos;
+    }
+
+    public List<Venta> getListaVentas() {
+        return listaVentas;
+    }
+    public void setListaVentas(List<Venta> listaVentas) {
+        this.listaVentas = listaVentas;
     }
 }
