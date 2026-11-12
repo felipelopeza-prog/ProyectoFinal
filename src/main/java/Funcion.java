@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,21 +10,19 @@ public class Funcion {
     private Pelicula pelicula;
     private Sala sala;
     private String codigo;
-    private LocalDate fecha;
-    private LocalTime hora;
+    private LocalDateTime fechaHora;
     private double valorBase;
     private EstadoFuncion estadoFuncion;
 
     private List<Asiento> listaAsientos;
     private List<Venta> listaVentas;
 
-    public Funcion(Asiento asiento, Cine cine, Pelicula pelicula, Sala sala, String codigo, LocalDate fecha, LocalTime hora, double valorBase, EstadoFuncion estadoFuncion) {
+    public Funcion(Asiento asiento, Cine cine, Pelicula pelicula, Sala sala, String codigo, LocalDateTime fechaHora, double valorBase, EstadoFuncion estadoFuncion) {
         this.cine = cine;
         this.pelicula = pelicula;
         this.sala = sala;
         this.codigo = codigo;
-        this.fecha = fecha;
-        this.hora = hora;
+        this.fechaHora = fechaHora;
         this.valorBase = valorBase;
         this.estadoFuncion = estadoFuncion;
 
@@ -60,18 +59,11 @@ public class Funcion {
         this.codigo = codigo;
     }
 
-    public LocalDate getFecha() {
-        return fecha;
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public LocalTime getHora() {
-        return hora;
-    }
-    public void setHora(LocalTime hora) {
-        this.hora = hora;
+    public void setFechaHora(LocalDateTime fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
     public double getValorBase() {
