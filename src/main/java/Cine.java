@@ -1,6 +1,9 @@
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Cine {
 
@@ -82,7 +85,9 @@ public class Cine {
         this.listaEmpleados = listaEmpleados;
     }
 
-    //PELICULAS
+    // ==========================================
+    // PELICULAS
+    // ==========================================
     public boolean registrarPelicula(Pelicula nuevaPelicula){
         if (verificarPelicula(nuevaPelicula.getCodigo())) {
             return false;
@@ -106,40 +111,41 @@ public class Cine {
                 return pelicula;
             }
         }
-        System.out.println("Pelicula no encontrada");
         return null;
     }
 
     public void modificarPelicula(String codigo, String nuevoNombre, Genero nuevoGenero, int nuevaDuracion,
                                   Clasificacion nuevaClasificacion){
-
-        if(!verificarPelicula(codigo)){
-            System.out.println("No puedes modificar una pelicula que no existe");
+        Pelicula pelicula = buscarPelicula(codigo);
+        if(pelicula != null){
+            pelicula.setNombre(nuevoNombre);
+            pelicula.setGenero(nuevoGenero);
+            pelicula.setDuracionMinutos(nuevaDuracion);
+            pelicula.setClasificacion(nuevaClasificacion);
+        } else {
+            System.out.println("No se puede modificar. Película no encontrada.");
         }
-        for(Pelicula pelicula : listaPeliculas){
-            if(pelicula.getCodigo().equals(codigo)){
-                pelicula.setNombre(nuevoNombre);
-                pelicula.setGenero(nuevoGenero);
-                pelicula.setDuracionMinutos(nuevaDuracion);
-                pelicula.setClasificacion(nuevaClasificacion);
-            }
-        }
-
     }
 
     public void deshabilitarPelicula(String codigo){
         Pelicula pelicula = buscarPelicula(codigo);
-        pelicula.setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
+        if(pelicula != null){
+            pelicula.setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
+        }
     }
 
     public void consultarPeliculasDisponibles(){
         for(Pelicula pelicula : listaPeliculas){
-            System.out.println(pelicula.toString());
-            System.out.println("-----------------------------");
+            if(pelicula.getEstadoPelicula() == EstadoPelicula.DISPONIBLE) {
+                System.out.println(pelicula.toString());
+                System.out.println("-----------------------------");
+            }
         }
     }
 
-    //SALAS
+    // ==========================================
+    // SALAS
+    // ==========================================
     public boolean registrarSala(Sala nuevaSala){
         if (verificarSala(nuevaSala.getCodigo())) {
             return false;
@@ -163,25 +169,43 @@ public class Cine {
                 return sala;
             }
         }
-        System.out.println("Sala no encontrada");
         return null;
     }
 
     public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
-
+        Sala sala = buscarSala(codigo);
+        if(sala != null){
+            sala.setNumero(nuevoNumero);
+            sala.setCapacidad(nuevaCapacidad);
+        } else {
+            System.out.println("Sala no encontrada para modificar.");
+        }
     }
 
     public void deshabilitarSala(String codigo){
-
+        Sala sala = buscarSala(codigo);
+        if(sala != null){
+            sala.setEstadoSala(EstadoSala.FUERA_SERVICIO);
+        }
     }
 
     public void consultarSalas(){
-
+        for(Sala sala : listaSalas){
+            System.out.println(sala.toString());
+            System.out.println("-----------------------------");
+        }
     }
 
-    //FUNCIONES
+    // ==========================================
+    // FUNCIONES
+    // ==========================================
     public boolean registrarFuncion(Funcion nuevaFuncion){
         if (verificarFuncion(nuevaFuncion.getCodigo())) {
+            return false;
+        }
+        // Validar que la sala esté disponible
+        if (nuevaFuncion.getSala().getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
+            System.out.println("No se puede programar función en una sala fuera de servicio.");
             return false;
         }
         listaFunciones.add(nuevaFuncion);
@@ -203,27 +227,48 @@ public class Cine {
                 return funcion;
             }
         }
-        System.out.println("Funcion no encontrada");
         return null;
     }
 
     public void modificarFuncion(String codigo, Pelicula nuevaPelicula, Sala nuevaSala, LocalDateTime nuevaFechaHora, double valorBase){
-
+        Funcion funcion = buscarFuncion(codigo);
+        if(funcion != null){
+            funcion.setPelicula(nuevaPelicula);
+            funcion.setSala(nuevaSala);
+            funcion.setFechaHora(nuevaFechaHora);
+            funcion.setValorBase(valorBase);
+        } else {
+            System.out.println("Función no encontrada.");
+        }
     }
 
     public void consultarFunciones(){
-
+        for(Funcion funcion : listaFunciones){
+            System.out.println(funcion.toString());
+            System.out.println("-----------------------------");
+        }
     }
 
-    public void consultarFuncionesPorFecha(){
-
+    public void consultarFuncionesPorFecha(LocalDate fecha){
+        for(Funcion funcion : listaFunciones){
+            if(funcion.getFechaHora().toLocalDate().equals(fecha) && funcion.getEstadoFuncion() == EstadoFuncion.PROGRAMADA){
+                System.out.println(funcion.toString());
+                System.out.println("-----------------------------");
+            }
+        }
     }
 
     public void cancelarFuncion(String codigo){
-
+        Funcion funcion = buscarFuncion(codigo);
+        if(funcion != null){
+            funcion.setEstadoFuncion(EstadoFuncion.CANCELADA);
+            System.out.println("Función cancelada exitosamente.");
+        }
     }
 
-    //CLIENTES
+    // ==========================================
+    // CLIENTES
+    // ==========================================
     public boolean registrarCliente(Cliente nuevoCliente){
         if (verificarCliente(nuevoCliente.getIdentificacion())) {
             return false;
@@ -247,11 +292,12 @@ public class Cine {
                 return cliente;
             }
         }
-        System.out.println("Cliente no encontrado (se recomienda registrar el cliente)");
         return null;
     }
 
-    //EMPLEADO
+    // ==========================================
+    // EMPLEADOS
+    // ==========================================
     public boolean registrarEmpleado(Empleado nuevoEmpleado){
         if (verificarEmpleado(nuevoEmpleado.getIdentificacion())) {
             return false;
@@ -275,11 +321,12 @@ public class Cine {
                 return empleado;
             }
         }
-        System.out.println("Empleado no encontrada");
         return null;
     }
 
-    //VENTAS
+    // ==========================================
+    // VENTAS Y GESTIÓN DE ENTRADAS
+    // ==========================================
     public boolean registrarVenta(Venta nuevaVenta){
         if (verificarVenta(nuevaVenta.getCodigo())) {
             return false;
@@ -303,28 +350,156 @@ public class Cine {
                 return venta;
             }
         }
-        System.out.println("Venta no encontrada");
         return null;
+    }
+
+
+    public Venta venderEntrada(String codigoVenta, String idCliente, String nombreCliente,
+                               TipoCliente tipoCliente, String codigoFuncion,
+                               String codigoAsiento, Empleado empleado) {
+
+        Funcion funcion = buscarFuncion(codigoFuncion);
+        if (funcion == null || funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
+            System.out.println("La función no existe o no está programada.");
+        }
+
+
+        Cliente cliente = buscarCliente(idCliente);
+        if (cliente == null) {
+            cliente = new Cliente(this, idCliente, nombreCliente, tipoCliente);
+            registrarCliente(cliente);
+        }
+
+
+        Asiento asientoEncontrado = null;
+        for (Asiento asiento : funcion.getListaAsientos()) {
+            if (asiento.getCodigo().equalsIgnoreCase(codigoAsiento)) {
+                asientoEncontrado = asiento;
+                break;
+            }
+        }
+
+        if (asientoEncontrado == null) {
+            System.out.println("El asiento especificado no existe en esta función.");
+        }
+
+        if (asientoEncontrado.getEstadoAsiento() == EstadoAsiento.OCUPADO) {
+            System.out.println("El asiento ya se encuentra ocupado.");
+        }
+
+
+        double valorPagado = funcion.getValorBase();
+
+
+        if (tipoCliente != null) {
+
+            switch (tipoCliente) {
+                case ESTUDIANTE -> valorPagado *= 0.80; // 20% descuento
+                case NINO -> valorPagado *= 0.65;        // 35% descuento
+                case ADULTO_MAYOR -> valorPagado *= 0.75; // 25% descuento
+                default -> {} // GENERAL
+            }
+        }
+
+
+        asientoEncontrado.marcarAsientoOcupado();
+
+         Venta nuevaVenta = new Venta(
+                this,
+                cliente,
+                empleado,
+                funcion,
+                asientoEncontrado,
+                codigoVenta,
+                LocalDateTime.now(),
+                valorPagado,
+                EstadoVenta.ACTIVA
+        );
+
+        listaVentas.add(nuevaVenta);
+
+        cliente.getListaVentas().add(nuevaVenta);
+        if(empleado != null) {
+            empleado.getListaVentas().add(nuevaVenta);
+        }
+
+        return nuevaVenta;
     }
 
     public void cancelarVenta(String codigo){
-
+        Venta venta = buscarVenta(codigo);
+        if(venta != null && venta.getEstadoVenta() == EstadoVenta.ACTIVA){
+            venta.setEstadoVenta(EstadoVenta.CANCELADA);
+            if(venta.getAsiento() != null){
+                venta.getAsiento().setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+            }
+            System.out.println("Venta cancelada exitosamente y asiento liberado.");
+        } else {
+            System.out.println("Venta no encontrada o ya estaba cancelada.");
+        }
     }
 
-    //METODOS GENERALES DE CINE
+    // ==========================================
+    // METODOS GENERALES Y REPORTES
+    // ==========================================
+
     public int obtenerTotalEntradasVendidas(){
-        return 0;
+        int total = 0;
+        for (Venta venta : listaVentas) {
+            if (venta.getEstadoVenta() == EstadoVenta.ACTIVA) {
+                total++;
+            }
+        }
+        return total;
     }
 
     public double obtenerTotalIngresos(){
-        return 0;
+        double total = 0.0;
+        for (Venta venta : listaVentas) {
+            if (venta.getEstadoVenta() == EstadoVenta.ACTIVA) {
+                total += venta.getValorPagado();
+            }
+        }
+        return total;
     }
 
     public Pelicula obtenerPeliculaMasVendida(){
-        return null;
+        if (listaPeliculas.isEmpty()) return null;
+
+        Map<Pelicula, Integer> conteoPeliculas = new HashMap<>();
+        for (Venta venta : listaVentas) {
+            if (venta.getEstadoVenta() == EstadoVenta.ACTIVA && venta.getFuncion() != null) {
+                Pelicula p = venta.getFuncion().getPelicula();
+                conteoPeliculas.put(p, conteoPeliculas.getOrDefault(p, 0) + 1);
+            }
+        }
+
+        Pelicula masVendida = null;
+        int maxVentas = -1;
+        for (Map.Entry<Pelicula, Integer> entry : conteoPeliculas.entrySet()) {
+            if (entry.getValue() > maxVentas) {
+                maxVentas = entry.getValue();
+                masVendida = entry.getKey();
+            }
+        }
+        return masVendida;
     }
 
-    public void mostrarReporteOcupacionFuncion(String codigo){
-
+    public void mostrarReporteOcupacionFuncion(String codigoFuncion){
+        Funcion funcion = buscarFuncion(codigoFuncion);
+        if(funcion != null){
+            int disponibles = 0;
+            int ocupados = 0;
+            for(Asiento a : funcion.getListaAsientos()){
+                if(a.getEstadoAsiento() == EstadoAsiento.DISPONIBLE) disponibles++;
+                else ocupados++;
+            }
+            System.out.println("--- REPORTE DE OCUPACIÓN: Función " + codigoFuncion + " ---");
+            System.out.println("Película: " + funcion.getPelicula().getNombre());
+            System.out.println("Asientos Disponibles: " + disponibles);
+            System.out.println("Asientos Ocupados: " + ocupados);
+        } else {
+            System.out.println("Función no encontrada.");
+        }
     }
 }
