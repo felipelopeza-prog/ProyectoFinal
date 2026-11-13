@@ -2,7 +2,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Cine {
 
@@ -141,8 +143,10 @@ public class Cine {
 
     public void consultarPeliculasDisponibles(){
         for(Pelicula pelicula : listaPeliculas){
-            System.out.println(pelicula.toString());
-            System.out.println("-----------------------------");
+            if(pelicula.getEstadoPelicula() == EstadoPelicula.DISPONIBLE) {
+                System.out.println(pelicula.toString());
+                System.out.println("-----------------------------");
+            }
         }
     }
 
@@ -175,25 +179,21 @@ public class Cine {
     }
 
     public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
-        if(!verificarSala(codigo)){
-            System.out.println("No puedes modificar una pelicula que no existe");
-            return;
-        }
-        for(Sala sala : listaSalas){
-            if(sala.getCodigo().equals(codigo)){
-                sala.setNumero(nuevoNumero);
-                sala.setCapacidad(nuevaCapacidad);
-                return;
-            }
+        Sala sala = buscarSala(codigo);
+        if(sala != null){
+            sala.setNumero(nuevoNumero);
+            sala.setCapacidad(nuevaCapacidad);
+        } else {
+            System.out.println("Sala no encontrada para modificar.");
         }
     }
 
     public void deshabilitarSala(String codigo){
+
         Sala sala = buscarSala(codigo);
-        if (sala == null){
-            return;
+        if(sala != null){
+            sala.setEstadoSala(EstadoSala.FUERA_SERVICIO);
         }
-        sala.setEstadoSala(EstadoSala.FUERA_SERVICIO);
     }
 
     public void consultarSalas(){
@@ -206,6 +206,11 @@ public class Cine {
     //FUNCIONES
     public boolean registrarFuncion(Funcion nuevaFuncion){
         if (verificarFuncion(nuevaFuncion.getCodigo())) {
+            return false;
+        }
+        // Validar que la sala esté disponible
+        if (nuevaFuncion.getSala().getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
+            System.out.println("No se puede programar función en una sala fuera de servicio.");
             return false;
         }
         listaFunciones.add(nuevaFuncion);
@@ -358,12 +363,90 @@ public class Cine {
         return null;
     }
 
+
+    public Venta venderEntrada(String codigoVenta, String idCliente, String nombreCliente,
+                               TipoCliente tipoCliente, String codigoFuncion,
+                               String codigoAsiento, Empleado empleado) {
+
+        Funcion funcion = buscarFuncion(codigoFuncion);
+        if (funcion == null || funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
+            System.out.println("La función no existe o no está programada.");
+        }
+
+
+        Cliente cliente = buscarCliente(idCliente);
+        if (cliente == null) {
+            cliente = new Cliente(this, idCliente, nombreCliente, tipoCliente);
+            registrarCliente(cliente);
+        }
+
+
+        Asiento asientoEncontrado = null;
+        for (Asiento asiento : funcion.getListaAsientos()) {
+            if (asiento.getCodigo().equalsIgnoreCase(codigoAsiento)) {
+                asientoEncontrado = asiento;
+                break;
+            }
+        }
+
+        if (asientoEncontrado == null) {
+            System.out.println("El asiento especificado no existe en esta función.");
+        }
+
+        if (asientoEncontrado.getEstadoAsiento() == EstadoAsiento.OCUPADO) {
+            System.out.println("El asiento ya se encuentra ocupado.");
+        }
+
+
+        double valorPagado = funcion.getValorBase();
+
+
+        if (tipoCliente != null) {
+
+            switch (tipoCliente) {
+                case ESTUDIANTE -> valorPagado *= 0.80; // 20% descuento
+                case NINO -> valorPagado *= 0.65;        // 35% descuento
+                case ADULTO_MAYOR -> valorPagado *= 0.75; // 25% descuento
+                default -> {} // GENERAL
+            }
+        }
+
+
+        asientoEncontrado.marcarAsientoOcupado();
+
+         Venta nuevaVenta = new Venta(
+                this,
+                cliente,
+                empleado,
+                funcion,
+                asientoEncontrado,
+                codigoVenta,
+                LocalDateTime.now(),
+                valorPagado,
+                EstadoVenta.ACTIVA
+        );
+
+        listaVentas.add(nuevaVenta);
+
+        cliente.getListaVentas().add(nuevaVenta);
+        if(empleado != null) {
+            empleado.getListaVentas().add(nuevaVenta);
+        }
+
+        return nuevaVenta;
+    }
+
     public void cancelarVenta(String codigo){
         Venta venta = buscarVenta(codigo);
-        if(venta == null){
-            return;
+        if(venta != null && venta.getEstadoVenta() == EstadoVenta.ACTIVA){
+            venta.setEstadoVenta(EstadoVenta.CANCELADA);
+            if(venta.getAsiento() != null){
+                venta.getAsiento().setEstadoAsiento(EstadoAsiento.DISPONIBLE);
+            }
+            System.out.println("Venta cancelada exitosamente y asiento liberado.");
+        } else {
+            System.out.println("Venta no encontrada o ya estaba cancelada.");
         }
-        venta.setEstadoVenta(EstadoVenta.CANCELADA);
     }
 
     //METODOS GENERALES DE CINE
@@ -388,15 +471,33 @@ public class Cine {
     }
 
     public Pelicula obtenerPeliculaMasVendida(){
-        //IMPORTANTE: este metodo queda pendiente, hacerlo despues
-        return null;
-    }
+        if (listaPeliculas.isEmpty()) return null;
 
+        Map<Pelicula, Integer> conteoPeliculas = new HashMap<>();
+        for (Venta venta : listaVentas) {
+            if (venta.getEstadoVenta() == EstadoVenta.ACTIVA && venta.getFuncion() != null) {
+                Pelicula p = venta.getFuncion().getPelicula();
+                conteoPeliculas.put(p, conteoPeliculas.getOrDefault(p, 0) + 1);
+            }
+        }
+
+        Pelicula masVendida = null;
+        int maxVentas = -1;
+        for (Map.Entry<Pelicula, Integer> entry : conteoPeliculas.entrySet()) {
+            if (entry.getValue() > maxVentas) {
+                maxVentas = entry.getValue();
+                masVendida = entry.getKey();
+            }
+        }
+        return masVendida;
+    }
     public void mostrarReporteOcupacionFuncion(String codigo){
         Funcion funcion = buscarFuncion(codigo);
         if(funcion == null){
             return;
         }
+        System.out.println("--- REPORTE DE OCUPACIÓN: Función " + codigo + " ---");
+        System.out.println("Película: " + funcion.getPelicula().getNombre());
         System.out.println("Total asientos: " + funcion.getListaAsientos().size());
         int asientosDisponibles = 0;
         int asientosOcupados = 0;

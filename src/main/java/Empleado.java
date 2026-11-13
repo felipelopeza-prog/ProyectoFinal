@@ -32,7 +32,6 @@ public class Empleado extends Persona {
         this.rolEmpleado = rolEmpleado;
     }
 
-    //METODOS GENERALES DE EMPLEADO
     public boolean verificarRolAdministrador(){
         return rolEmpleado == RolEmpleado.ADMINISTRADOR;
     }
