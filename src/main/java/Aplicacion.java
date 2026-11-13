@@ -5,7 +5,7 @@ public class Aplicacion {
         int opcion;
         do {
             System.out.println("\n======        MENU        ======");
-            System.out.println("     ====== CINEMAUQ ======     ");
+            System.out.println("     ======= CINEMAUQ =======     ");
 
 
             System.out.println("\n--- Escoja una de las siguientes opciones:  ---");
