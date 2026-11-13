@@ -113,14 +113,30 @@ public class Cine {
     public void modificarPelicula(String codigo, String nuevoNombre, Genero nuevoGenero, int nuevaDuracion,
                                   Clasificacion nuevaClasificacion){
 
+        if(!verificarPelicula(codigo)){
+            System.out.println("No puedes modificar una pelicula que no existe");
+        }
+        for(Pelicula pelicula : listaPeliculas){
+            if(pelicula.getCodigo().equals(codigo)){
+                pelicula.setNombre(nuevoNombre);
+                pelicula.setGenero(nuevoGenero);
+                pelicula.setDuracionMinutos(nuevaDuracion);
+                pelicula.setClasificacion(nuevaClasificacion);
+            }
+        }
+
     }
 
     public void deshabilitarPelicula(String codigo){
-
+        Pelicula pelicula = buscarPelicula(codigo);
+        pelicula.setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
     }
 
     public void consultarPeliculasDisponibles(){
-
+        for(Pelicula pelicula : listaPeliculas){
+            System.out.println(pelicula.toString());
+            System.out.println("-----------------------------");
+        }
     }
 
     //SALAS
