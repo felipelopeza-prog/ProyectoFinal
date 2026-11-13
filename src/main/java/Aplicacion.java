@@ -16,7 +16,7 @@ public class Aplicacion {
             System.out.println("\n--- Escoja una de las siguientes opciones:  ---");
 
             System.out.println("1.  Venta de entrada");
-            System.out.println("2. Cancelar venta ");
+            System.out.println("2.  Cancelar venta ");
             System.out.println("3.  Consultar películas");
             System.out.println("4.  Consultar funciones");
             System.out.println("5.  Consultar disponibilidad");
@@ -114,11 +114,11 @@ public class Aplicacion {
                                 String nombreReg = sc.nextLine();
 
                                 System.out.println("Género:");
-                                for (int i = 0; i < Genero.values().length; i++) {
-                                    System.out.println((i + 1) + ". " + Genero.values()[i]);
+                                for (int i = 0; i < GeneroPelicula.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + GeneroPelicula.values()[i]);
                                 }
                                 System.out.print("Opción: ");
-                                Genero generoReg = Genero.values()[sc.nextInt() - 1];
+                                GeneroPelicula generoReg = GeneroPelicula.values()[sc.nextInt() - 1];
 
                                 System.out.print("Duración en minutos: ");
                                 int duracionReg = sc.nextInt();
@@ -177,11 +177,11 @@ public class Aplicacion {
                                 String nombreMod = sc.nextLine();
 
                                 System.out.println("Nuevo género:");
-                                for (int i = 0; i < Genero.values().length; i++) {
-                                    System.out.println((i + 1) + ". " + Genero.values()[i]);
+                                for (int i = 0; i < GeneroPelicula.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + GeneroPelicula.values()[i]);
                                 }
                                 System.out.print("Opción: ");
-                                Genero generoMod = Genero.values()[sc.nextInt() - 1];
+                                GeneroPelicula generoMod = GeneroPelicula.values()[sc.nextInt() - 1];
 
                                 System.out.print("Nueva duración en minutos: ");
                                 int duracionMod = sc.nextInt();

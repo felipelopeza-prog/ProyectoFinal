@@ -1,4 +1,4 @@
-public enum Genero {
+public enum GeneroPersona {
     MASCULINO,
     FEMENINO;
 }

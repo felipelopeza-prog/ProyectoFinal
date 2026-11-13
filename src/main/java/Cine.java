@@ -114,12 +114,12 @@ public class Cine {
         return null;
     }
 
-    public void modificarPelicula(String codigo, String nuevoNombre, Genero nuevoGenero, int nuevaDuracion,
+    public void modificarPelicula(String codigo, String nuevoNombre, GeneroPelicula nuevoGenero, int nuevaDuracion,
                                   Clasificacion nuevaClasificacion){
         Pelicula pelicula = buscarPelicula(codigo);
         if(pelicula != null){
             pelicula.setNombre(nuevoNombre);
-            pelicula.setGenero(nuevoGenero);
+            pelicula.setGeneroPelicula(nuevoGenero);
             pelicula.setDuracionMinutos(nuevaDuracion);
             pelicula.setClasificacion(nuevaClasificacion);
         } else {
