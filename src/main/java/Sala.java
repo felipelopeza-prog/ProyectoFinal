@@ -13,14 +13,14 @@ public class Sala {
     private List<Asiento> coleccionAsientos;
     private List<Funcion> listaFunciones;
 
-    public Sala(Asiento asiento, Cine cine, String codigo, int numero, int capacidad, EstadoSala estadoSala) {
+    public Sala(Cine cine, String codigo, int numero, int filas, int columnas) {
         this.codigo = codigo;
         this.numero = numero;
-        this.capacidad = capacidad;
-        this.estadoSala = estadoSala;
+        this.capacidad = filas*columnas;
+        this.estadoSala = EstadoSala.DISPONIBLE;
 
         coleccionAsientos = new ArrayList<>();
-        coleccionAsientos.add(asiento);
+        crearAsientos(filas,columnas);
         listaFunciones = new ArrayList<>();
     }
 
@@ -74,15 +74,34 @@ public class Sala {
     }
 
     //METODOS GENERALES DE SALA
-    public void crearAsientos(int filas, int colummnas){
+    public void crearAsientos(int filas, int columnas){
 
+        for(int i = 0; i < filas; i++){
+            char letraFila = (char)('A'+i);
+            for (int j = 1; j <= columnas; j++){
+                String codigoAsiento = letraFila + "" + j;
+                coleccionAsientos.add(new Asiento(codigoAsiento, i, j, EstadoAsiento.DISPONIBLE));
+            }
+        }
     }
 
     public boolean verificarDisponibilidad(){
-        return true;
+        return getEstadoSala() == EstadoSala.DISPONIBLE;
     }
 
     public List<Asiento> clonarAsientos(){
-        return null;
+        List<Asiento> copia = new ArrayList<>();
+        for(Asiento asiento : coleccionAsientos){
+            copia.add(new Asiento(asiento.getCodigo(), asiento.getFila(), asiento.getNumero(), asiento.getEstadoAsiento()));
+        }
+        return copia;
+    }
+
+    public void habilitarSala(){
+        setEstadoSala(EstadoSala.DISPONIBLE);
+    }
+
+    public void deshabilitarSala(){
+        setEstadoSala(EstadoSala.FUERA_SERVICIO);
     }
 }
