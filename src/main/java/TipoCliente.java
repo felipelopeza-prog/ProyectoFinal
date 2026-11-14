@@ -1,16 +1,26 @@
-public enum TipoCliente {
-    GENERAL(15000),
-    ESTUDIANTE(12000),
-    NINO(10000),
-    ADULTO_MAYOR(11000);
-
-    private double valorTipo;
-
-    TipoCliente(double valorTipo) {
-        this.valorTipo = valorTipo;
-    }
-
-    public double getValorTipo() {
-        return valorTipo;
+public enum TipoCliente implements Tarifa{
+    GENERAL{
+        @Override
+        public double calcularValorEntrada(double valorBase) {
+            return valorBase;
+        }
+    },
+    ESTUDIANTE{
+        @Override
+        public double calcularValorEntrada(double valorBase) {
+            return valorBase * 0.80;
+        }
+    },
+    NINO{
+        @Override
+        public double calcularValorEntrada(double valorBase) {
+            return valorBase * 0.65;
+        }
+    },
+    ADULTO_MAYOR{
+        @Override
+        public double calcularValorEntrada(double valorBase) {
+            return valorBase * 0.70;
+        }
     }
 }
