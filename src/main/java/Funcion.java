@@ -10,19 +10,21 @@ public class Funcion {
     private Pelicula pelicula;
     private Sala sala;
     private String codigo;
-    private LocalDateTime fechaHora;
+    private LocalDate fecha;
+    private LocalTime hora;
     private double valorBase;
     private EstadoFuncion estadoFuncion;
 
     private List<Asiento> listaAsientos;
     private List<Venta> listaVentas;
 
-    public Funcion(Asiento asiento, Cine cine, Pelicula pelicula, Sala sala, String codigo, LocalDateTime fechaHora, double valorBase, EstadoFuncion estadoFuncion) {
+    public Funcion(Asiento asiento, Cine cine, Pelicula pelicula, Sala sala, String codigo, LocalDate fecha, LocalTime hora, double valorBase, EstadoFuncion estadoFuncion) {
         this.cine = cine;
         this.pelicula = pelicula;
         this.sala = sala;
         this.codigo = codigo;
-        this.fechaHora = fechaHora;
+        this.fecha = fecha;
+        this.hora = hora;
         this.valorBase = valorBase;
         this.estadoFuncion = estadoFuncion;
 
@@ -59,11 +61,18 @@ public class Funcion {
         this.codigo = codigo;
     }
 
-    public LocalDateTime getFechaHora() {
-        return fechaHora;
+    public LocalDate getFecha() {
+        return fecha;
     }
-    public void setFechaHora(LocalDateTime fechaHora) {
-        this.fechaHora = fechaHora;
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public LocalTime getHora() {
+        return hora;
+    }
+    public void setHora(LocalTime hora) {
+        this.hora = hora;
     }
 
     public double getValorBase() {
@@ -92,6 +101,22 @@ public class Funcion {
     }
     public void setListaVentas(List<Venta> listaVentas) {
         this.listaVentas = listaVentas;
+    }
+
+    @Override
+    public String toString() {
+        return "Funcion{" +
+                "cine=" + cine +
+                ", pelicula=" + pelicula +
+                ", sala=" + sala +
+                ", codigo='" + codigo + '\'' +
+                ", fecha=" + fecha +
+                ", hora=" + hora +
+                ", valorBase=" + valorBase +
+                ", estadoFuncion=" + estadoFuncion +
+                ", listaAsientos=" + listaAsientos +
+                ", listaVentas=" + listaVentas +
+                '}';
     }
 
     //METODOS GENERALES DE FUNCION
