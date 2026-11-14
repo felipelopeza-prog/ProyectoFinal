@@ -16,7 +16,7 @@ public class Aplicacion {
             System.out.println("\n--- Escoja una de las siguientes opciones:  ---");
 
             System.out.println("1.  Venta de entrada");
-            System.out.println("2. Cancelar venta ");
+            System.out.println("2.  Cancelar venta");
             System.out.println("3.  Consultar películas");
             System.out.println("4.  Consultar funciones");
             System.out.println("5.  Consultar disponibilidad");
@@ -33,7 +33,7 @@ public class Aplicacion {
             sc.nextLine();
 
 
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     System.out.println("\n--- MÓDULO DE VENTA DE ENTRADAS ---");
 
@@ -79,14 +79,178 @@ public class Aplicacion {
                     System.out.println("Valor Pagado: $" + nuevaVenta.getValorPagado());
                     break;
                 case 2:
+                    System.out.println("\n--- MÓDULO DE CANCELACIÓN DE VENTA ---");
+                    System.out.print("Ingrese el código de la venta que desea cancelar: ");
+                    String codigoVentaCancelar = sc.nextLine();
+
+                    cine.cancelarVenta(codigoVentaCancelar);
                     break;
                 case 3:
+                    System.out.println("\n--- MÓDULO DE CONSULTA DE PELÍCULAS ---");
+                    System.out.println("1. Ver películas disponibles");
+                    System.out.println("2. Buscar película por código");
+                    System.out.print("Seleccione una opción: ");
+
+                    int opcionPeli = Integer.parseInt(sc.nextLine());
+
+                    if (opcionPeli == 1) {
+                        System.out.println("\n--- LISTADO DE PELÍCULAS DISPONIBLES ---");
+                        cine.consultarPeliculasDisponibles();
+
+                    } else if (opcionPeli == 2) {
+                        System.out.print("Ingrese el código de la película: ");
+                        String codigoPeli = sc.nextLine();
+
+                        Pelicula peliculaEncontrada = cine.buscarPelicula(codigoPeli);
+                        if (peliculaEncontrada != null) {
+                            System.out.println("\n¡Película encontrada!");
+                            System.out.println(peliculaEncontrada.toString());
+                        } else {
+                            System.out.println("No se encontró ninguna película con el código ingresado.");
+                        }
+                    } else {
+                        System.out.println("Opción inválida.");
+                    }
                     break;
                 case 4:
                     break;
                 case 5:
                     break;
+
                 case 6:
+                    int opPeliculas;
+                    do {
+                        System.out.println("\n--- ADMINISTRAR PELÍCULAS ---");
+                        System.out.println("1. Registrar película");
+                        System.out.println("2. Buscar película");
+                        System.out.println("3. Modificar película");
+                        System.out.println("4. Deshabilitar película");
+                        System.out.println("0. Volver");
+                        System.out.print("Opción: ");
+                        opPeliculas = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (opPeliculas) {
+                            case 1:
+                                System.out.print("Código: ");
+                                String codigoReg = sc.nextLine();
+
+                                if (cine.verificarPelicula(codigoReg)) {
+                                    System.out.println("Ya existe una película con ese código");
+                                    break;
+                                }
+
+                                System.out.print("Nombre: ");
+                                String nombreReg = sc.nextLine();
+
+                                System.out.println("Género:");
+                                for (int i = 0; i < GeneroPelicula.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + GeneroPelicula.values()[i]);
+                                }
+                                System.out.print("Opción: ");
+                                GeneroPelicula generoReg = GeneroPelicula.values()[sc.nextInt() - 1];
+
+                                System.out.print("Duración en minutos: ");
+                                int duracionReg = sc.nextInt();
+                                sc.nextLine();
+
+                                System.out.println("Clasificación:");
+                                for (int i = 0; i < Clasificacion.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + Clasificacion.values()[i]);
+                                }
+                                System.out.print("Opción: ");
+                                Clasificacion clasificacionReg = Clasificacion.values()[sc.nextInt() - 1];
+                                sc.nextLine();
+
+                                Pelicula nueva = new Pelicula(cine, codigoReg, nombreReg, generoReg, duracionReg,
+                                        clasificacionReg, EstadoPelicula.DISPONIBLE);
+                                cine.registrarPelicula(nueva);
+                                System.out.println("Película registrada");
+                                break;
+
+                            case 2:
+                                System.out.println("1. Buscar por código");
+                                System.out.println("2. Ver todas las películas");
+                                System.out.print("Opción: ");
+                                int opBuscar = sc.nextInt();
+                                sc.nextLine();
+
+                                switch (opBuscar) {
+                                    case 1:
+                                        System.out.print("Código: ");
+                                        String codigoBus = sc.nextLine();
+                                        if (cine.verificarPelicula(codigoBus)) {
+                                            System.out.println(cine.buscarPelicula(codigoBus));
+                                        } else {
+                                            System.out.println("No existe una película con ese código");
+                                        }
+                                        break;
+                                    case 2:
+                                        cine.consultarPeliculasDisponibles();
+                                        break;
+                                    default:
+                                        System.out.println("Opción inválida");
+                                        break;
+                                }
+                                break;
+
+                            case 3:
+                                System.out.print("Código de la película a modificar: ");
+                                String codigoMod = sc.nextLine();
+
+                                if (!cine.verificarPelicula(codigoMod)) {
+                                    System.out.println("No existe una película con ese código");
+                                    break;
+                                }
+
+                                System.out.print("Nuevo nombre: ");
+                                String nombreMod = sc.nextLine();
+
+                                System.out.println("Nuevo género:");
+                                for (int i = 0; i < GeneroPelicula.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + GeneroPelicula.values()[i]);
+                                }
+                                System.out.print("Opción: ");
+                                GeneroPelicula generoMod = GeneroPelicula.values()[sc.nextInt() - 1];
+
+                                System.out.print("Nueva duración en minutos: ");
+                                int duracionMod = sc.nextInt();
+                                sc.nextLine();
+
+                                System.out.println("Nueva clasificación:");
+                                for (int i = 0; i < Clasificacion.values().length; i++) {
+                                    System.out.println((i + 1) + ". " + Clasificacion.values()[i]);
+                                }
+                                System.out.print("Opción: ");
+                                Clasificacion clasificacionMod = Clasificacion.values()[sc.nextInt() - 1];
+                                sc.nextLine();
+
+                                cine.modificarPelicula(codigoMod, nombreMod, generoMod, duracionMod, clasificacionMod);
+                                System.out.println("Película modificada");
+                                break;
+
+                            case 4:
+                                System.out.print("Código de la película a deshabilitar: ");
+                                String codigoDes = sc.nextLine();
+
+                                if (!cine.verificarPelicula(codigoDes)) {
+                                    System.out.println("No existe una película con ese código");
+                                    break;
+                                }
+
+                                cine.deshabilitarPelicula(codigoDes);
+                                System.out.println("Película deshabilitada");
+                                break;
+
+                            case 0:
+                                System.out.println("Volviendo al menú principal...");
+                                break;
+
+                            default:
+                                System.out.println("Opción inválida");
+                                break;
+                        }
+                    } while (opPeliculas != 0);
                     break;
                 case 7:
                     break;

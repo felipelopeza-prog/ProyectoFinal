@@ -114,31 +114,24 @@ public class Cine {
         return null;
     }
 
-    public void modificarPelicula(String codigo, String nuevoNombre, Genero nuevoGenero, int nuevaDuracion,
+    public void modificarPelicula(String codigo, String nuevoNombre, GeneroPelicula nuevoGenero, int nuevaDuracion,
                                   Clasificacion nuevaClasificacion){
-
-        if(!verificarPelicula(codigo)){
-            System.out.println("No puedes modificar una pelicula que no existe");
-            return;
+        Pelicula pelicula = buscarPelicula(codigo);
+        if(pelicula != null){
+            pelicula.setNombre(nuevoNombre);
+            pelicula.setGeneroPelicula(nuevoGenero);
+            pelicula.setDuracionMinutos(nuevaDuracion);
+            pelicula.setClasificacion(nuevaClasificacion);
+        } else {
+            System.out.println("No se puede modificar. Película no encontrada.");
         }
-        for(Pelicula pelicula : listaPeliculas){
-            if(pelicula.getCodigo().equals(codigo)){
-                pelicula.setNombre(nuevoNombre);
-                pelicula.setGenero(nuevoGenero);
-                pelicula.setDuracionMinutos(nuevaDuracion);
-                pelicula.setClasificacion(nuevaClasificacion);
-                return;
-            }
-        }
-
     }
 
     public void deshabilitarPelicula(String codigo){
         Pelicula pelicula = buscarPelicula(codigo);
-        if (pelicula == null){
-            return;
+        if(pelicula != null){
+            pelicula.setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
         }
-        pelicula.setEstadoPelicula(EstadoPelicula.NO_DISPONIBLE);
     }
 
     public void consultarPeliculasDisponibles(){
@@ -272,11 +265,10 @@ public class Cine {
 
     public void cancelarFuncion(String codigo){
         Funcion funcion = buscarFuncion(codigo);
-        if(funcion == null){
-            return;
+        if(funcion != null){
+            funcion.setEstadoFuncion(EstadoFuncion.CANCELADA);
+            System.out.println("Función cancelada exitosamente.");
         }
-        funcion.setEstadoFuncion(EstadoFuncion.CANCELADA);
-
     }
 
     //CLIENTES

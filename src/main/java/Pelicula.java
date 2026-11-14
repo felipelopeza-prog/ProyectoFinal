@@ -6,14 +6,14 @@ public class Pelicula {
 
     private String codigo;
     private String nombre;
-    private Genero genero;
+    private GeneroPelicula genero;
     private int duracionMinutos;
     private Clasificacion clasificacion;
     private EstadoPelicula estadoPelicula;
 
     private List<Funcion> listaFunciones;
 
-    public Pelicula(Cine cine, String codigo, String nombre, Genero genero, int duracionMinutos, Clasificacion clasificacion, EstadoPelicula estadoPelicula) {
+    public Pelicula(Cine cine, String codigo, String nombre, GeneroPelicula genero, int duracionMinutos, Clasificacion clasificacion, EstadoPelicula estadoPelicula) {
         this.cine = cine;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -46,10 +46,10 @@ public class Pelicula {
         this.nombre = nombre;
     }
 
-    public Genero getGenero() {
+    public GeneroPelicula getGeneroPelicula() {
         return genero;
     }
-    public void setGenero(Genero genero) {
+    public void setGeneroPelicula(GeneroPelicula genero) {
         this.genero = genero;
     }
 
@@ -60,9 +60,11 @@ public class Pelicula {
         this.duracionMinutos = duracionMinutos;
     }
 
+    // CORREGIDO: antes devolvía GeneroPelicula
     public Clasificacion getClasificacion() {
         return clasificacion;
     }
+    // CORREGIDO: antes recibía GeneroPelicula
     public void setClasificacion(Clasificacion clasificacion) {
         this.clasificacion = clasificacion;
     }
