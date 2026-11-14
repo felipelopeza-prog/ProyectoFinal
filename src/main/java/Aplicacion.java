@@ -16,7 +16,7 @@ public class Aplicacion {
             System.out.println("\n--- Escoja una de las siguientes opciones:  ---");
 
             System.out.println("1.  Venta de entrada");
-            System.out.println("2.  Cancelar venta ");
+            System.out.println("2.  Cancelar venta");
             System.out.println("3.  Consultar películas");
             System.out.println("4.  Consultar funciones");
             System.out.println("5.  Consultar disponibilidad");
@@ -79,8 +79,38 @@ public class Aplicacion {
                     System.out.println("Valor Pagado: $" + nuevaVenta.getValorPagado());
                     break;
                 case 2:
+                    System.out.println("\n--- MÓDULO DE CANCELACIÓN DE VENTA ---");
+                    System.out.print("Ingrese el código de la venta que desea cancelar: ");
+                    String codigoVentaCancelar = sc.nextLine();
+
+                    cine.cancelarVenta(codigoVentaCancelar);
                     break;
                 case 3:
+                    System.out.println("\n--- MÓDULO DE CONSULTA DE PELÍCULAS ---");
+                    System.out.println("1. Ver películas disponibles");
+                    System.out.println("2. Buscar película por código");
+                    System.out.print("Seleccione una opción: ");
+
+                    int opcionPeli = Integer.parseInt(sc.nextLine());
+
+                    if (opcionPeli == 1) {
+                        System.out.println("\n--- LISTADO DE PELÍCULAS DISPONIBLES ---");
+                        cine.consultarPeliculasDisponibles();
+
+                    } else if (opcionPeli == 2) {
+                        System.out.print("Ingrese el código de la película: ");
+                        String codigoPeli = sc.nextLine();
+
+                        Pelicula peliculaEncontrada = cine.buscarPelicula(codigoPeli);
+                        if (peliculaEncontrada != null) {
+                            System.out.println("\n¡Película encontrada!");
+                            System.out.println(peliculaEncontrada.toString());
+                        } else {
+                            System.out.println("No se encontró ninguna película con el código ingresado.");
+                        }
+                    } else {
+                        System.out.println("Opción inválida.");
+                    }
                     break;
                 case 4:
                     break;
