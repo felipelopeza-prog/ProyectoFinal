@@ -72,7 +72,7 @@ public class Asiento {
 
     //METODOS GENERALES DE ASIENTO
     public boolean verificarDisponibilidad(){
-        return estadoAsiento == EstadoAsiento.DISPONIBLE;
+        return getEstadoAsiento() == EstadoAsiento.DISPONIBLE;
     }
 
     public void marcarAsientoOcupado(){
