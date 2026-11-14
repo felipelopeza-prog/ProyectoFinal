@@ -49,29 +49,29 @@ public class Aplicacion {
                     }
 
                     System.out.print("Ingrese identificación del cliente: ");
-                    String idCliente = sc.nextLine();
+                    String identificacionCliente = sc.nextLine();
 
                     System.out.print("Ingrese nombre del cliente: ");
                     String nombreCliente = sc.nextLine();
 
                     System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
-                    int tipoOp = Integer.parseInt(sc.nextLine());
+                    int tipoOpcion = Integer.parseInt(sc.nextLine());
 
                     TipoCliente tipoCliente = TipoCliente.GENERAL;
-                    if (tipoOp == 2) tipoCliente = TipoCliente.ESTUDIANTE;
-                    else if (tipoOp == 3) tipoCliente = TipoCliente.NINO;
-                    else if (tipoOp == 4) tipoCliente = TipoCliente.ADULTO_MAYOR;
+                    if (tipoOpcion == 2) tipoCliente = TipoCliente.ESTUDIANTE;
+                    else if (tipoOpcion == 3) tipoCliente = TipoCliente.NINO;
+                    else if (tipoOpcion == 4) tipoCliente = TipoCliente.ADULTO_MAYOR;
 
                     System.out.print("Ingrese el código de la función: ");
-                    String codFunc = sc.nextLine();
+                    String codigoFuncion = sc.nextLine();
 
                     System.out.print("Ingrese el código del asiento (ej. A1): ");
-                    String codAsiento = sc.nextLine();
+                    String codigoAsiento = sc.nextLine();
 
                     String codVenta = "V-" + System.currentTimeMillis();
 
-                    Venta nuevaVenta = cine.venderEntrada(codVenta, idCliente, nombreCliente, tipoCliente,
-                            codFunc, codAsiento, empleadoActual
+                    Venta nuevaVenta = cine.venderEntrada(codVenta, identificacionCliente, nombreCliente, tipoCliente,
+                            codigoFuncion, codigoAsiento, empleadoActual
                     );
 
                     System.out.println("\n¡Venta realizada con éxito!");
@@ -91,13 +91,13 @@ public class Aplicacion {
                     System.out.println("2. Buscar película por código");
                     System.out.print("Seleccione una opción: ");
 
-                    int opcionPeli = Integer.parseInt(sc.nextLine());
+                    int opcionPelicula = Integer.parseInt(sc.nextLine());
 
-                    if (opcionPeli == 1) {
+                    if (opcionPelicula == 1) {
                         System.out.println("\n--- LISTADO DE PELÍCULAS DISPONIBLES ---");
                         cine.consultarPeliculasDisponibles();
 
-                    } else if (opcionPeli == 2) {
+                    } else if (opcionPelicula == 2) {
                         System.out.print("Ingrese el código de la película: ");
                         String codigoPeli = sc.nextLine();
 
