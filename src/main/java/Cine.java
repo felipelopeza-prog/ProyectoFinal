@@ -171,11 +171,10 @@ public class Cine {
         return null;
     }
 
-    public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
+    public void modificarSala(String codigo, int nuevoNumero){
         Sala sala = buscarSala(codigo);
         if(sala != null){
             sala.setNumero(nuevoNumero);
-            sala.setCapacidad(nuevaCapacidad);
         } else {
             System.out.println("Sala no encontrada para modificar.");
         }
@@ -194,6 +193,15 @@ public class Cine {
         if(sala != null){
             sala.habilitarSala();
         }
+    }
+
+    public boolean verificarNumeroSala(int numeroSala){
+        for(Sala sala : listaSalas){
+            if(sala.getNumero() == numeroSala){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void consultarSalas(){
