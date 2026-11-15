@@ -171,11 +171,10 @@ public class Cine {
         return null;
     }
 
-    public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
+    public void modificarSala(String codigo, int nuevoNumero){
         Sala sala = buscarSala(codigo);
         if(sala != null){
             sala.setNumero(nuevoNumero);
-            sala.setCapacidad(nuevaCapacidad);
         } else {
             System.out.println("Sala no encontrada para modificar.");
         }
