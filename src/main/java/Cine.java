@@ -185,7 +185,14 @@ public class Cine {
 
         Sala sala = buscarSala(codigo);
         if(sala != null){
-            sala.setEstadoSala(EstadoSala.FUERA_SERVICIO);
+            sala.deshabilitarSala();
+        }
+    }
+    public void habilitarSala(String codigo){
+
+        Sala sala = buscarSala(codigo);
+        if(sala != null){
+            sala.habilitarSala();
         }
     }
 
