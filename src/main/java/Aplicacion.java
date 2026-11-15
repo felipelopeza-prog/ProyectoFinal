@@ -27,6 +27,26 @@ public class Aplicacion {
         cine.registrarSala(s3);
         cine.deshabilitarSala("S3");
 
+        //Funciones que hay
+
+        cine.registrarFuncion(new Funcion(s1.getColeccionAsientos().get(0), cine, p1, s1, "F1",
+                LocalDate.now().plusDays(1), LocalTime.of(18, 0), 15000, EstadoFuncion.PROGRAMADA));
+        cine.registrarFuncion(new Funcion(s2.getColeccionAsientos().get(0), cine, p2, s2, "F2",
+                LocalDate.now().plusDays(1), LocalTime.of(20, 30), 12000, EstadoFuncion.PROGRAMADA));
+        cine.registrarFuncion(new Funcion(s1.getColeccionAsientos().get(0), cine, p3, s1, "F3",
+                LocalDate.now().plusDays(2), LocalTime.of(16, 0), 15000, EstadoFuncion.CANCELADA));
+
+        //ciclo para llenar los asientos de una función
+
+        for (Funcion funcion : cine.getListaFunciones()) {
+            funcion.getListaAsientos().clear();
+            for (Asiento a : funcion.getSala().getColeccionAsientos()) {
+                funcion.getListaAsientos().add(new Asiento(a.getCodigo(), a.getFila(), a.getNumero(), EstadoAsiento.DISPONIBLE));
+            }
+        }
+
+
+
 
 
 
