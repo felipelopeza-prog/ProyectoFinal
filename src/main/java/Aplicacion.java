@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -640,7 +641,19 @@ public class Aplicacion {
                                 break;
                             }
                             case 5:{
+                                System.out.print("Ingresa la fecha a consultar (Año-Mes-Dia): ");
 
+                                System.out.println("Año: ");
+                                int anio = sc.nextInt();
+
+                                System.out.println("Mes: ");
+                                int mes = sc.nextInt();
+
+                                System.out.println("Dia: ");
+                                int dia = sc.nextInt();
+
+                                LocalDate fecha = LocalDate.of(anio,mes,dia);
+                                cine.consultarFuncionesPorFecha(fecha);
                                 break;
                             }
                             case 6:{
