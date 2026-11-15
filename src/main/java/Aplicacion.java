@@ -10,9 +10,9 @@ public class Aplicacion {
         //Peliculas que hay
 
         Pelicula p1 = new Pelicula(cine, "P1", "Interestelar", GeneroPelicula.CIENCIA_FICCION, 169, Clasificacion.ADOLESCENTES, EstadoPelicula.DISPONIBLE);
-        Pelicula p2 = new Pelicula(cine, "P2", "Coco", GeneroPelicula.MUSICAL, 105, Clasificacion.NINOS, EstadoPelicula.DISPONIBLE);
+        Pelicula p2 = new Pelicula(cine, "P2", "Coco", GeneroPelicula.MUSICAL, 105, Clasificacion.NINIOS, EstadoPelicula.DISPONIBLE);
         Pelicula p3 = new Pelicula(cine, "P3", "El Conjuro", GeneroPelicula.TERROR, 112, Clasificacion.ADULTOS, EstadoPelicula.DISPONIBLE);
-        Pelicula p4 = new Pelicula(cine, "P4", "Toy Story", GeneroPelicula.COMEDIA, 81, Clasificacion.NINOS, EstadoPelicula.NO_DISPONIBLE);
+        Pelicula p4 = new Pelicula(cine, "P4", "Toy Story", GeneroPelicula.COMEDIA, 81, Clasificacion.NINIOS, EstadoPelicula.NO_DISPONIBLE);
         cine.registrarPelicula(p1);
         cine.registrarPelicula(p2);
         cine.registrarPelicula(p3);
