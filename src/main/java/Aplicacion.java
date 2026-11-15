@@ -657,7 +657,19 @@ public class Aplicacion {
                                 break;
                             }
                             case 6:{
+                                System.out.println("=== REPORTE GENERAL ===");
+                                int totalEntradasVendidas = cine.obtenerTotalEntradasVendidas();
+                                System.out.println("Total de entradas vendidas: " + totalEntradasVendidas);
 
+                                double totalIngresos = cine.obtenerTotalIngresos();
+                                System.out.println("Total de Ingresos: " + totalIngresos);
+
+                                Pelicula pelicula = cine.obtenerPeliculaMasVendida();
+                                if(pelicula != null) {
+                                    System.out.println("===== PELICULA CON MAS VENTAS ====");
+                                    System.out.println(pelicula.toString());
+                                }
+                                System.out.println("Aun no hay registradas ventas en el sistema");
                                 break;
                             }
                             case 0:{
