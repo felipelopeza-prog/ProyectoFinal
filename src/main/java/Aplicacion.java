@@ -568,6 +568,11 @@ public class Aplicacion {
                                 cine.habilitarSala(codigoHabSala);
                                 break;
                             }
+
+                            case 5: {
+                                cine.consultarSalas();
+                                break;
+                            }
                             case 0:
                                 System.out.println("Volviendo al menú principal...");
                                 break;
