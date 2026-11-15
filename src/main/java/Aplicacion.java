@@ -584,8 +584,53 @@ public class Aplicacion {
                     } while (opSalas != 0);
                     break;
                     }
-                case 9:
+                case 9: {
+                    int opcionReporte;
+                    do {
+                        System.out.println("\n--- REPORTES ---");
+                        System.out.println("1. Total de entradas vendidas");
+                        System.out.println("2. Total de ingresos recaudados");
+                        System.out.println("3. Película con mayor cantidad de ventas");
+                        System.out.println("4. Ocupación de una función");
+                        System.out.println("5. Funciones programadas por fecha");
+                        System.out.println("0. Volver al menú principal");
+                        System.out.print("Opción: ");
+                        opcionReporte = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (opcionReporte){
+                            case 1:{
+                                int totalEntradasVendidas = cine.obtenerTotalEntradasVendidas();
+                                System.out.println("Total de entradas vendidas: " + totalEntradasVendidas);
+                                break;
+                            }
+                            case 2:{
+
+                                break;
+                            }
+                            case 3:{
+
+                                break;
+                            }
+                            case 4:{
+
+                                break;
+                            }
+                            case 5:{
+
+                                break;
+                            }
+                            case 0:{
+                                System.out.println("Volviendo al menú principal...");
+                                break;
+                            }
+                            default:
+                                System.out.println("Opción no válida");
+                                break;
+                        }
+                    } while(opcionReporte != 0);
                     break;
+                }
                 case 10:
 
                     System.out.println("Programa finalizado.....");
