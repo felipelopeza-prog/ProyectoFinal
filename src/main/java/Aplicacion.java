@@ -606,6 +606,7 @@ public class Aplicacion {
                         System.out.println("3. Película con mayor cantidad de ventas");
                         System.out.println("4. Ocupación de una función");
                         System.out.println("5. Funciones programadas por fecha");
+                        System.out.println("6. Reporte General");
                         System.out.println("0. Volver al menú principal");
                         System.out.print("Opción: ");
                         opcionReporte = sc.nextInt();
@@ -618,7 +619,8 @@ public class Aplicacion {
                                 break;
                             }
                             case 2:{
-
+                                double totalIngresos = cine.obtenerTotalIngresos();
+                                System.out.println("Total de Ingresos: " + totalIngresos);
                                 break;
                             }
                             case 3:{
@@ -630,6 +632,10 @@ public class Aplicacion {
                                 break;
                             }
                             case 5:{
+
+                                break;
+                            }
+                            case 6:{
 
                                 break;
                             }
