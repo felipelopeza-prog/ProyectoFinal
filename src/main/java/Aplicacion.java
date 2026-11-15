@@ -7,6 +7,7 @@ public class Aplicacion {
     public static void main (String [] args){
 
         Cine cine = new Cine("CINEMAUQ", "900.123.456-1");
+        //Peliculas que hay
 
         Pelicula p1 = new Pelicula(cine, "P1", "Interestelar", GeneroPelicula.CIENCIA_FICCION, 169, Clasificacion.ADOLESCENTES, EstadoPelicula.DISPONIBLE);
         Pelicula p2 = new Pelicula(cine, "P2", "Coco", GeneroPelicula.MUSICAL, 105, Clasificacion.NINOS, EstadoPelicula.DISPONIBLE);
@@ -16,6 +17,17 @@ public class Aplicacion {
         cine.registrarPelicula(p2);
         cine.registrarPelicula(p3);
         cine.registrarPelicula(p4);
+
+        //Salas que hay
+        Sala s1 = new Sala(cine, "S1", 1, 4, 5);
+        Sala s2 = new Sala(cine, "S2", 2, 5, 6);
+        Sala s3 = new Sala(cine, "S3", 3, 3, 4);
+        cine.registrarSala(s1);
+        cine.registrarSala(s2);
+        cine.registrarSala(s3);
+        cine.deshabilitarSala("S3");
+
+
 
 
 
