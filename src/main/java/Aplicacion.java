@@ -441,7 +441,7 @@ public class Aplicacion {
                         sc.nextLine();
 
                         switch (opSalas) {
-                            case 1:
+                            case 1: {
                                 System.out.print("Código de la sala: ");
                                 String codigoSala = sc.nextLine();
                                 if (cine.verificarSala(codigoSala)) {
@@ -470,66 +470,54 @@ public class Aplicacion {
                                     numeroSala = sc.nextInt();
                                     if (cine.verificarNumeroSala(numeroSala)) {
                                         System.out.println("Ya existe una sala con ese numero, ingresa uno diferente a los siguientes numeros: ");
-                                        for(Sala sala : cine.getListaSalas()){
+                                        for (Sala sala : cine.getListaSalas()) {
                                             System.out.print(sala.getNumero() + ", ");
                                         }
                                     } else {
                                         numeroValido = true;
                                     }
-                                }while(numeroValido);
+                                } while (numeroValido);
 
-                                Sala nuevaSala = new Sala(cine,codigoSala,numeroSala,cantidadFilas,cantidadColumnas);
+                                Sala nuevaSala = new Sala(cine, codigoSala, numeroSala, cantidadFilas, cantidadColumnas);
                                 if (cine.registrarSala(nuevaSala)) {
                                     System.out.println("sala programada");
                                 }
                                 break;
-
-                            case 2:
-                                System.out.print("Código de la función a modificar: ");
-                                String codigoModF = sc.nextLine();
-                                if (!cine.verificarFuncion(codigoModF)) {
-                                    System.out.println("No existe una función con ese código");
-                                    break;
-                                }
-                                Funcion funcionModF = cine.buscarFuncion(codigoModF);
-                                if (funcionModF.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
-                                    System.out.println("Solo se pueden modificar funciones programadas");
+                            }
+                            case 2: {
+                                System.out.print("Código de la sala a modificar: ");
+                                String codigoModSala = sc.nextLine();
+                                if (!cine.verificarSala(codigoModSala)) {
+                                    System.out.println("No existe una sala con ese código");
                                     break;
                                 }
 
-                                System.out.print("Código de la nueva película: ");
-                                String codigoPelModF = sc.nextLine();
-                                if (!cine.verificarPelicula(codigoPelModF)) {
-                                    System.out.println("No existe una película con ese código");
-                                    break;
-                                }
-                                Pelicula peliculaModF = cine.buscarPelicula(codigoPelModF);
-                                if (!peliculaModF.verificarDisponibilidad()) {
-                                    System.out.println("La película no está disponible");
+                                Sala salaMod = cine.buscarSala(codigoModSala);
+                                if (salaMod.getEstadoSala() != EstadoSala.DISPONIBLE) {
+                                    System.out.println("Solo se pueden modificar salas disponibles");
                                     break;
                                 }
 
-                                System.out.print("Nuevo año: ");
-                                int anioModF = sc.nextInt();
-                                System.out.print("Nuevo mes (1-12): ");
-                                int mesModF = sc.nextInt();
-                                System.out.print("Nuevo día: ");
-                                int diaModF = sc.nextInt();
-                                System.out.print("Nueva hora (0-23): ");
-                                int horaNumModF = sc.nextInt();
-                                System.out.print("Nuevos minutos: ");
-                                int minutosModF = sc.nextInt();
-                                System.out.print("Nuevo valor base: ");
-                                double valorModF = sc.nextDouble();
-                                sc.nextLine();
+                                boolean numeroValido;
+                                int numeroSala;
+                                do {
+                                    numeroValido = false;
+                                    System.out.print("Nuevo numero de sala: ");
+                                    numeroSala = sc.nextInt();
+                                    if (cine.verificarNumeroSala(numeroSala)) {
+                                        System.out.println("Ya existe una sala con ese numero, ingresa uno diferente a los siguientes numeros: ");
+                                        for (Sala sala : cine.getListaSalas()) {
+                                            System.out.print(sala.getNumero() + ", ");
+                                        }
+                                    } else {
+                                        numeroValido = true;
+                                    }
+                                } while (numeroValido);
 
-                                LocalDate fechaModF = LocalDate.of(anioModF, mesModF, diaModF);
-                                LocalTime horaModF = LocalTime.of(horaNumModF, minutosModF);
-
-                                cine.modificarFuncion(codigoModF, peliculaModF, fechaModF, horaModF, valorModF);
-                                System.out.println("Función modificada");
+                                cine.modificarSala(codigoModSala, numeroSala);
+                                System.out.println("sala modificada");
                                 break;
-
+                            }
                             case 3:
                                 System.out.print("Código de la función a cancelar: ");
                                 String codigoCanF = sc.nextLine();
