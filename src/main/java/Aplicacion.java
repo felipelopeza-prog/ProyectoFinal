@@ -519,19 +519,18 @@ public class Aplicacion {
                                 break;
                             }
                             case 3:
-                                System.out.print("Código de la función a cancelar: ");
-                                String codigoCanF = sc.nextLine();
-                                if (!cine.verificarFuncion(codigoCanF)) {
-                                    System.out.println("No existe una función con ese código");
+                                System.out.print("Código de la sala a deshabilitar: ");
+                                String codigoDesSala = sc.nextLine();
+                                if (!cine.verificarSala(codigoDesSala)) {
+                                    System.out.println("No existe una sala con ese código");
                                     break;
                                 }
-                                Funcion funcionCanF = cine.buscarFuncion(codigoCanF);
-                                if (funcionCanF.getEstadoFuncion() == EstadoFuncion.CANCELADA) {
-                                    System.out.println("La función ya está cancelada");
+                                Sala salaDes = cine.buscarSala(codigoDesSala);
+                                if (salaDes.getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
+                                    System.out.println("La sala ya está deshabilitada/fuera de servicio");
                                     break;
                                 }
-
-                                cine.cancelarFuncion(codigoCanF);
+                                cine.deshabilitarSala(codigoDesSala);
                                 break;
 
                             case 0:
