@@ -496,7 +496,7 @@ public class Aplicacion {
                                     } else {
                                         numeroValido = true;
                                     }
-                                } while (numeroValido);
+                                } while (!numeroValido);
 
                                 Sala nuevaSala = new Sala(cine, codigoSala, numeroSala, cantidadFilas, cantidadColumnas);
                                 if (cine.registrarSala(nuevaSala)) {
@@ -532,7 +532,7 @@ public class Aplicacion {
                                     } else {
                                         numeroValido = true;
                                     }
-                                } while (numeroValido);
+                                } while (!numeroValido);
 
                                 cine.modificarSala(codigoModSala, numeroSala);
                                 System.out.println("sala modificada");

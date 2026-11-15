@@ -24,6 +24,18 @@ public class Sala {
         listaFunciones = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "--- Sala ---" +
+                "\ncine: " + cine +
+                "\ncodigo: " + codigo +
+                "\nnumero: " + numero +
+                "\ncapacidad: " + capacidad +
+                "\nestado de la Sala: " + estadoSala +
+                "\ncoleccion de Asientos: " + coleccionAsientos +
+                "\nlista de Funciones: " + listaFunciones;
+    }
+
     public Cine getCine() {
         return cine;
     }
