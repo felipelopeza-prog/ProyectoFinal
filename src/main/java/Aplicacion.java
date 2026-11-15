@@ -624,11 +624,19 @@ public class Aplicacion {
                                 break;
                             }
                             case 3:{
-
+                                Pelicula pelicula = cine.obtenerPeliculaMasVendida();
+                                if(pelicula != null) {
+                                    System.out.println("===== PELICULA CON MAS VENTAS ====");
+                                    System.out.println(pelicula.toString());
+                                    break;
+                                }
+                                System.out.println("Aun no hay registradas ventas en el sistema");
                                 break;
                             }
                             case 4:{
-
+                                System.out.print("Ingresa el codigo de la Funcion: ");
+                                String codigo = sc.nextLine();
+                                cine.mostrarReporteOcupacionFuncion(codigo);
                                 break;
                             }
                             case 5:{
