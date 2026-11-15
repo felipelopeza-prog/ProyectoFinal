@@ -196,6 +196,15 @@ public class Cine {
         }
     }
 
+    public boolean verificarNumeroSala(int numeroSala){
+        for(Sala sala : listaSalas){
+            if(sala.getNumero() == numeroSala){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void consultarSalas(){
         for(Sala sala : listaSalas){
             System.out.println(sala.toString());
