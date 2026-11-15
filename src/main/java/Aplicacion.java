@@ -538,7 +538,7 @@ public class Aplicacion {
                                 System.out.println("sala modificada");
                                 break;
                             }
-                            case 3:
+                            case 3:{
                                 System.out.print("Código de la sala a deshabilitar: ");
                                 String codigoDesSala = sc.nextLine();
                                 if (!cine.verificarSala(codigoDesSala)) {
@@ -552,7 +552,22 @@ public class Aplicacion {
                                 }
                                 cine.deshabilitarSala(codigoDesSala);
                                 break;
-
+                            }
+                            case 4: {
+                                System.out.print("Código de la sala a habilitar: ");
+                                String codigoHabSala = sc.nextLine();
+                                if (!cine.verificarSala(codigoHabSala)) {
+                                    System.out.println("No existe una sala con ese código");
+                                    break;
+                                }
+                                Sala salaHab = cine.buscarSala(codigoHabSala);
+                                if (salaHab.getEstadoSala() == EstadoSala.DISPONIBLE) {
+                                    System.out.println("La sala ya está habilitada/disponible");
+                                    break;
+                                }
+                                cine.habilitarSala(codigoHabSala);
+                                break;
+                            }
                             case 0:
                                 System.out.println("Volviendo al menú principal...");
                                 break;
