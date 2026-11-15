@@ -40,10 +40,23 @@ public class Aplicacion {
 
         for (Funcion funcion : cine.getListaFunciones()) {
             funcion.getListaAsientos().clear();
-            for (Asiento a : funcion.getSala().getColeccionAsientos()) {
-                funcion.getListaAsientos().add(new Asiento(a.getCodigo(), a.getFila(), a.getNumero(), EstadoAsiento.DISPONIBLE));
+            for (Asiento asiento : funcion.getSala().getColeccionAsientos()) {
+                funcion.getListaAsientos().add(new Asiento(asiento.getCodigo(), asiento.getFila(), asiento.getNumero(), EstadoAsiento.DISPONIBLE));
             }
         }
+
+        //CLientes que hay con uno de cada tipo
+
+        cine.registrarCliente(new Cliente(cine, "1001", "Ana Gómez", TipoCliente.GENERAL));
+        cine.registrarCliente(new Cliente(cine, "1002", "Luis Pérez", TipoCliente.ESTUDIANTE));
+        cine.registrarCliente(new Cliente(cine, "1003", "Sofía Ruiz", TipoCliente.NINO));
+        cine.registrarCliente(new Cliente(cine, "1004", "Marta Díaz", TipoCliente.ADULTO_MAYOR));
+        //Empleados 1 de cada 1
+
+
+        cine.registrarEmpleado(new Empleado(cine, "2001", "Carlos Admin", "admin", "1234", RolEmpleado.ADMINISTRADOR));
+        cine.registrarEmpleado(new Empleado(cine, "2002", "Laura Operadora", "operador", "5678", RolEmpleado.OPERADOR));
+
 
 
 
