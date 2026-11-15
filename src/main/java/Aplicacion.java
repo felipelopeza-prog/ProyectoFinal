@@ -509,7 +509,7 @@ public class Aplicacion {
                                     } else {
                                         numeroValido = true;
                                     }
-                                } while (numeroValido);
+                                } while (!numeroValido);
 
                                 Sala nuevaSala = new Sala(cine, codigoSala, numeroSala, cantidadFilas, cantidadColumnas);
                                 if (cine.registrarSala(nuevaSala)) {
@@ -545,28 +545,47 @@ public class Aplicacion {
                                     } else {
                                         numeroValido = true;
                                     }
-                                } while (numeroValido);
+                                } while (!numeroValido);
 
                                 cine.modificarSala(codigoModSala, numeroSala);
                                 System.out.println("sala modificada");
                                 break;
                             }
-                            case 3:
-                                System.out.print("Código de la función a cancelar: ");
-                                String codigoCanF = sc.nextLine();
-                                if (!cine.verificarFuncion(codigoCanF)) {
-                                    System.out.println("No existe una función con ese código");
+                            case 3:{
+                                System.out.print("Código de la sala a deshabilitar: ");
+                                String codigoDesSala = sc.nextLine();
+                                if (!cine.verificarSala(codigoDesSala)) {
+                                    System.out.println("No existe una sala con ese código");
                                     break;
                                 }
-                                Funcion funcionCanF = cine.buscarFuncion(codigoCanF);
-                                if (funcionCanF.getEstadoFuncion() == EstadoFuncion.CANCELADA) {
-                                    System.out.println("La función ya está cancelada");
+                                Sala salaDes = cine.buscarSala(codigoDesSala);
+                                if (salaDes.getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
+                                    System.out.println("La sala ya está deshabilitada/fuera de servicio");
                                     break;
                                 }
-
-                                cine.cancelarFuncion(codigoCanF);
+                                cine.deshabilitarSala(codigoDesSala);
                                 break;
+                            }
+                            case 4: {
+                                System.out.print("Código de la sala a habilitar: ");
+                                String codigoHabSala = sc.nextLine();
+                                if (!cine.verificarSala(codigoHabSala)) {
+                                    System.out.println("No existe una sala con ese código");
+                                    break;
+                                }
+                                Sala salaHab = cine.buscarSala(codigoHabSala);
+                                if (salaHab.getEstadoSala() == EstadoSala.DISPONIBLE) {
+                                    System.out.println("La sala ya está habilitada/disponible");
+                                    break;
+                                }
+                                cine.habilitarSala(codigoHabSala);
+                                break;
+                            }
 
+                            case 5: {
+                                cine.consultarSalas();
+                                break;
+                            }
                             case 0:
                                 System.out.println("Volviendo al menú principal...");
                                 break;
