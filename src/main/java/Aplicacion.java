@@ -2,7 +2,6 @@ import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
 public class Aplicacion {
-    private static Empleado empleadoActual = null;
 
     public static void main (String [] args){
 
@@ -31,11 +30,11 @@ public class Aplicacion {
 
         //Funciones que hay
 
-        cine.registrarFuncion(new Funcion(s1.getColeccionAsientos().get(0), cine, p1, s1, "F1",
+        cine.registrarFuncion(new Funcion(s1.getColeccionAsientos().getFirst(), cine, p1, s1, "F1",
                 LocalDate.now().plusDays(1), LocalTime.of(18, 0), 15000, EstadoFuncion.PROGRAMADA));
-        cine.registrarFuncion(new Funcion(s2.getColeccionAsientos().get(0), cine, p2, s2, "F2",
+        cine.registrarFuncion(new Funcion(s2.getColeccionAsientos().getFirst(), cine, p2, s2, "F2",
                 LocalDate.now().plusDays(1), LocalTime.of(20, 30), 12000, EstadoFuncion.PROGRAMADA));
-        cine.registrarFuncion(new Funcion(s1.getColeccionAsientos().get(0), cine, p3, s1, "F3",
+        cine.registrarFuncion(new Funcion(s3.getColeccionAsientos().getFirst(), cine, p3, s3, "F3",
                 LocalDate.now().plusDays(2), LocalTime.of(16, 0), 15000, EstadoFuncion.CANCELADA));
 
         //ciclo para llenar los asientos de una función
@@ -63,7 +62,7 @@ public class Aplicacion {
         System.out.println("Bienvenido al menu operativo de " + cine.getNombre());
 
         String identificacionEmpleado;
-        boolean existeEmpleado = false;
+        boolean existeEmpleado;
         do {
             System.out.print("Ingresa tu numero de identificacion: ");
             identificacionEmpleado = sc.nextLine();
@@ -75,11 +74,11 @@ public class Aplicacion {
             }
         } while(!existeEmpleado);
 
-        empleadoActual = cine.buscarEmpleado(identificacionEmpleado);
+        Empleado empleadoActual = cine.buscarEmpleado(identificacionEmpleado);
 
         String usuario;
         String contrasenia;
-        boolean validarUsuarioContrasenia = false;
+        boolean validarUsuarioContrasenia;
         do {
             System.out.print("Ingresa tu usuario: ");
             usuario = sc.nextLine();
@@ -124,17 +123,6 @@ public class Aplicacion {
             switch (opcion) {
                 case 1:
                     System.out.println("\n--- MÓDULO DE VENTA DE ENTRADAS ---");
-
-                    if (empleadoActual == null) {
-                        System.out.print("Ingrese la identificación del empleado actual: ");
-                        String idEmp = sc.nextLine();
-                        empleadoActual = cine.buscarEmpleado(idEmp);
-
-                        if (empleadoActual == null) {
-                            System.out.println("Error: Empleado no encontrado en el sistema.");
-                            break;
-                        }
-                    }
 
                     System.out.print("Ingrese identificación del cliente: ");
                     String identificacionCliente = sc.nextLine();
@@ -398,7 +386,7 @@ public class Aplicacion {
                                     System.out.println("La sala no tiene asientos registrados");
                                     break;
                                 }
-                                Asiento asientoProg = salaProg.getColeccionAsientos().get(0);
+                                Asiento asientoProg = salaProg.getColeccionAsientos().getFirst();
 
                                 System.out.print("Año: ");
                                 int anioProg = sc.nextInt();
@@ -538,7 +526,7 @@ public class Aplicacion {
                                     break;
                                 }
                                 boolean numeroValido;
-                                int numeroSala = 0;
+                                int numeroSala;
                                 do {
                                     numeroValido = false;
                                     System.out.print("Numero de sala: ");
@@ -755,7 +743,6 @@ public class Aplicacion {
                         if(!validarUsuarioContrasenia){
                             System.out.println("No coincide con el empleado anteriormente identificado");
                         }
-
                     } while(!validarUsuarioContrasenia);
                 }
                 case 0:
