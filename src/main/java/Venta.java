@@ -96,10 +96,6 @@ public class Venta {
     }
 
     //METODOS GENERALES DE VENTA
-    public double calcularValorFinal(){
-        return 0;
-    }
-
     public void cancelarVenta(){
         setEstadoVenta(EstadoVenta.CANCELADA);
         asiento.marcarAsientoDisponible();
