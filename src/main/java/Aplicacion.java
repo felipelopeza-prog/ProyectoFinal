@@ -327,6 +327,7 @@ public class Aplicacion {
                                 }
                                 System.out.print("Opción: ");
                                 GeneroPelicula generoReg = GeneroPelicula.values()[sc.nextInt() - 1];
+                                sc.nextLine();
 
                                 System.out.print("Duración en minutos: ");
                                 int duracionReg = sc.nextInt();
@@ -390,6 +391,7 @@ public class Aplicacion {
                                 }
                                 System.out.print("Opción: ");
                                 GeneroPelicula generoMod = GeneroPelicula.values()[sc.nextInt() - 1];
+                                sc.nextLine();
 
                                 System.out.print("Nueva duración en minutos: ");
                                 int duracionMod = sc.nextInt();
@@ -611,6 +613,7 @@ public class Aplicacion {
 
                                 System.out.print("Numero de filas: ");
                                 int cantidadFilas = sc.nextInt();
+                                sc.nextLine();
                                 if (cantidadFilas < 1) {
                                     System.out.println("No se puede registrar una sala con menos de 1 fila");
                                     break;
@@ -618,6 +621,7 @@ public class Aplicacion {
 
                                 System.out.print("Numero de columnas: ");
                                 int cantidadColumnas = sc.nextInt();
+                                sc.nextLine();
                                 if (cantidadColumnas < 1) {
                                     System.out.println("No se puede registrar una sala con menos de 1 columna");
                                     break;
@@ -628,6 +632,7 @@ public class Aplicacion {
                                     numeroValido = false;
                                     System.out.print("Numero de sala: ");
                                     numeroSala = sc.nextInt();
+                                    sc.nextLine();
                                     if (cine.verificarNumeroSala(numeroSala)) {
                                         System.out.println("Ya existe una sala con ese numero, ingresa uno diferente a los siguientes numeros: ");
                                         for (Sala sala : cine.getListaSalas()) {
@@ -664,6 +669,7 @@ public class Aplicacion {
                                     numeroValido = false;
                                     System.out.print("Nuevo numero de sala: ");
                                     numeroSala = sc.nextInt();
+                                    sc.nextLine();
                                     if (cine.verificarNumeroSala(numeroSala)) {
                                         System.out.println("Ya existe una sala con ese numero, ingresa uno diferente a los siguientes numeros: ");
                                         for (Sala sala : cine.getListaSalas()) {
@@ -781,6 +787,7 @@ public class Aplicacion {
 
                                 System.out.println("Dia: ");
                                 int dia = sc.nextInt();
+                                sc.nextLine();
 
                                 LocalDate fecha = LocalDate.of(anio,mes,dia);
                                 cine.consultarFuncionesPorFecha(fecha);
@@ -798,8 +805,9 @@ public class Aplicacion {
                                 if(pelicula != null) {
                                     System.out.println("===== PELICULA CON MAS VENTAS ====");
                                     System.out.println(pelicula.toString());
+                                }else {
+                                    System.out.println("Aun no hay registradas ventas en el sistema");
                                 }
-                                System.out.println("Aun no hay registradas ventas en el sistema");
                                 break;
                             }
                             case 0:{
@@ -841,6 +849,7 @@ public class Aplicacion {
                             System.out.println("No coincide con el empleado anteriormente identificado");
                         }
                     } while(!validarUsuarioContrasenia);
+                    break;
                 }
                 case 11: {
                     System.out.print("Ingrese identificación del nuevo cliente: ");
@@ -855,7 +864,7 @@ public class Aplicacion {
                         if (!identificacionValida) {
                             System.out.println("Ya existe un cliente con esta identificacion en la base de datos. Ingresa una identificacion valida o ingresa 0 para salir al menu principal");
                         }
-                    } while (identificacionValida);
+                    } while (!identificacionValida);
                     if (identificacionNuevoCliente.equals("0")) {
                         break;
                     }
@@ -868,7 +877,9 @@ public class Aplicacion {
                         System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
                         tipoOpcion = Integer.parseInt(sc.nextLine());
 
-                        if(tipoOpcion == 2){
+                        if (tipoOpcion == 1) {
+                            tipoCliente = TipoCliente.GENERAL;
+                        } else if(tipoOpcion == 2){
                             tipoCliente = TipoCliente.ESTUDIANTE;
                         } else if (tipoOpcion == 3){
                             tipoCliente = TipoCliente.NINIO;
@@ -883,6 +894,12 @@ public class Aplicacion {
                     System.out.println("Registro de cliente exitoso");
                     break;
                 } case 12:{
+                    if (empleadoActual.getRolEmpleado() != RolEmpleado.ADMINISTRADOR) {
+                        System.out.println("No tiene acceso permitido a esta opcion. Solo el administrador puede ingresar a esta opcion");
+                        break;
+                    }
+
+
                     System.out.print("Ingrese identificación del nuevo empleado: ");
                     String identificacionNuevoEmpleado = "";
                     boolean identificacionValida;
@@ -895,7 +912,7 @@ public class Aplicacion {
                         if (!identificacionValida) {
                             System.out.println("Ya existe un empleado con esta identificacion en la base de datos. Ingresa una identificacion valida o ingresa 0 para salir al menu principal");
                         }
-                    } while (identificacionValida);
+                    } while (!identificacionValida);
                     if (identificacionNuevoEmpleado.equals("0")) {
                         break;
                     }
@@ -908,7 +925,9 @@ public class Aplicacion {
                         System.out.println("Seleccione Rol Empleado (1. OPERADOR, 2. ADMINISTRADOR): ");
                         tipoOpcion = Integer.parseInt(sc.nextLine());
 
-                        if(tipoOpcion == 2){
+                        if (tipoOpcion == 1) {
+                            rolEmpleado = RolEmpleado.OPERADOR;
+                        }else if(tipoOpcion == 2){
                             rolEmpleado = RolEmpleado.ADMINISTRADOR;
                         } else {
                             System.out.println("Esta opcion no es valida. elige la opcion 1 o 2");
@@ -916,13 +935,13 @@ public class Aplicacion {
                     }while(tipoOpcion < 1 || tipoOpcion > 2);
 
                     String usuarioNuevoEmpleado = "";
-                    boolean usuarioNuevoValido = false;
+                    boolean usuarioNuevoValido = true;
                     do{
                         System.out.print("Ingresa el nombre usuario del nuevo Empleado: ");
                         usuarioNuevoEmpleado = sc.nextLine();
                         for(Empleado empleado : cine.getListaEmpleados()){
                             if(empleado.getUsuario().equals(usuarioNuevoEmpleado)){
-                                usuarioNuevoValido = true;
+                                usuarioNuevoValido = false;
                                 break;
                             }
                         }
@@ -939,7 +958,7 @@ public class Aplicacion {
                         if(contraseniaNuevoEmpleado.length() < 5){
                             System.out.println("Contraseña invalida. Tu contraseña debe tener minimo 5 caracteres");
                         }
-                    }while(contraseniaNuevoEmpleado.length() >= 5);
+                    }while(contraseniaNuevoEmpleado.length() < 5);
 
                     cine.registrarEmpleado(new Empleado(cine, identificacionNuevoEmpleado, nombreNuevoEmpleado, usuarioNuevoEmpleado,contraseniaNuevoEmpleado, rolEmpleado));
                     System.out.println("Registro de empleado exitoso");
