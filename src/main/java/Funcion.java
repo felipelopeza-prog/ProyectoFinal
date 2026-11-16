@@ -132,7 +132,7 @@ public class Funcion {
         return null;
     }
 
-    public void ocuparAsiento(String codigo){
+    public void ocuparAsiento(String codigo) throws IllegalArgumentException, AsientoOcupadoException{
         Asiento asiento = buscarAsiento(codigo);
         if (asiento == null) {
             throw new IllegalArgumentException("El asiento " + codigo + " no existe en la sala " + sala.getNumero() + ".");
@@ -143,11 +143,15 @@ public class Funcion {
         asiento.marcarAsientoOcupado();
     }
 
-    public void liberarAsiento(String codigo){
+    public void liberarAsiento(String codigo) throws IllegalArgumentException, AsientoOcupadoException{
         Asiento asiento = buscarAsiento(codigo);
-        if (asiento != null) {
-            asiento.verificarDisponibilidad();
+        if (asiento == null) {
+            throw new IllegalArgumentException("El asiento " + codigo + " no existe en la sala " + sala.getNumero() + ".");
         }
+        if (asiento.verificarDisponibilidad()) {
+            throw new AsientoOcupadoException("El asiento " + codigo + " ya se encuentra libre para esta función.");
+        }
+        asiento.marcarAsientoDisponible();
     }
 
     public int contarAsientosDisponibles(){
