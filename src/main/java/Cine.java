@@ -504,10 +504,10 @@ public class Cine {
         }
         return masVendida;
     }
-    public void mostrarReporteOcupacionFuncion(String codigo){
+    public void mostrarReporteOcupacionFuncion(String codigo) throws FuncionNoEncontradaException{
         Funcion funcion = buscarFuncion(codigo);
         if(funcion == null){
-            return;
+            throw new FuncionNoEncontradaException("No existe la funcion con el código " + codigo);
         }
         System.out.println("--- REPORTE DE OCUPACIÓN: Función " + codigo + " ---");
         System.out.println("Película: " + funcion.getPelicula().getNombre());
