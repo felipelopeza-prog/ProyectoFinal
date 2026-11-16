@@ -170,7 +170,7 @@ public class Aplicacion {
                             codigoFuncionion, codigoAsiento, empleadoActual
                     );
 
-                    System.out.println("\n¡Venta realizada con éxito!");
+                    System.out.println("Venta realizada con éxito");
                     System.out.println("Código de Venta: " + nuevaVenta.getCodigo());
                     System.out.println("Valor Pagado: $" + nuevaVenta.getValorPagado());
                     break;
@@ -196,11 +196,11 @@ public class Aplicacion {
 
                     } else if (opcionPelicula == 2) {
                         System.out.print("Ingrese el código de la película: ");
-                        String codigoPeli = sc.nextLine();
+                        String codigoPelicula = sc.nextLine();
 
-                        Pelicula peliculaEncontrada = cine.buscarPelicula(codigoPeli);
+                        Pelicula peliculaEncontrada = cine.buscarPelicula(codigoPelicula);
                         if (peliculaEncontrada != null) {
-                            System.out.println("\n¡Película encontrada!");
+                            System.out.println("Película encontrada exitosamente");
                             System.out.println(peliculaEncontrada.toString());
                         } else {
                             System.out.println("No se encontró ninguna película con el código ingresado.");
@@ -244,7 +244,7 @@ public class Aplicacion {
                     }
                     break;
                 case 5:
-                    System.out.println("\n--- MÓDULO DE CONSULTA DE DISPONIBILIDAD ---");
+                    System.out.println("--- MÓDULO DE CONSULTA DE DISPONIBILIDAD ---");
                     System.out.print("Ingrese el código de la función: ");
                     String codigoFuncionDisponibilidad = sc.nextLine();
 
