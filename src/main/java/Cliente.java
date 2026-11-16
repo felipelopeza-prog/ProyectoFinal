@@ -14,8 +14,9 @@ public class Cliente extends Persona{
         this.tipoCliente = tipoCliente;
     }
 
+
     //METODOS GENERALES DE CLIENTE
-    public double calcularPrecioEntrada(){
-        return getTipoCliente().getValorTipo();
+    public double calcularPrecioEntrada(double valorBase){
+        return getTipoCliente().calcularValorEntrada(valorBase);
     }
 }

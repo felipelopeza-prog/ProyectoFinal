@@ -1,5 +1,5 @@
 public enum Clasificacion {
-    NIÑOS,
+    NINIOS,
     ADOLESCENTES,
     ADULTOS;
 }

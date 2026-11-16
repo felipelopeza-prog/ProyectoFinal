@@ -1,10 +1,9 @@
+import exceptions.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Cine {
 
@@ -87,9 +86,9 @@ public class Cine {
     }
 
     //PELICULAS
-    public boolean registrarPelicula(Pelicula nuevaPelicula){
+    public boolean registrarPelicula(Pelicula nuevaPelicula) throws CodigoDuplicadoException {
         if (verificarPelicula(nuevaPelicula.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una película registrada con el código " + nuevaPelicula.getCodigo());
         }
         listaPeliculas.add(nuevaPelicula);
         return true;
@@ -144,9 +143,9 @@ public class Cine {
     }
 
     //SALAS
-    public boolean registrarSala(Sala nuevaSala){
+    public boolean registrarSala(Sala nuevaSala) throws CodigoDuplicadoException{
         if (verificarSala(nuevaSala.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una sala registrada con el código " + nuevaSala.getCodigo());
         }
         listaSalas.add(nuevaSala);
         return true;
@@ -171,11 +170,10 @@ public class Cine {
         return null;
     }
 
-    public void modificarSala(String codigo, int nuevoNumero, int nuevaCapacidad){
+    public void modificarSala(String codigo, int nuevoNumero){
         Sala sala = buscarSala(codigo);
         if(sala != null){
             sala.setNumero(nuevoNumero);
-            sala.setCapacidad(nuevaCapacidad);
         } else {
             System.out.println("Sala no encontrada para modificar.");
         }
@@ -185,8 +183,24 @@ public class Cine {
 
         Sala sala = buscarSala(codigo);
         if(sala != null){
-            sala.setEstadoSala(EstadoSala.FUERA_SERVICIO);
+            sala.deshabilitarSala();
         }
+    }
+    public void habilitarSala(String codigo){
+
+        Sala sala = buscarSala(codigo);
+        if(sala != null){
+            sala.habilitarSala();
+        }
+    }
+
+    public boolean verificarNumeroSala(int numeroSala){
+        for(Sala sala : listaSalas){
+            if(sala.getNumero() == numeroSala){
+                return true;
+            }
+        }
+        return false;
     }
 
     public void consultarSalas(){
@@ -197,14 +211,13 @@ public class Cine {
     }
 
     //FUNCIONES
-    public boolean registrarFuncion(Funcion nuevaFuncion){
+    public boolean registrarFuncion(Funcion nuevaFuncion) throws CodigoDuplicadoException, SalaNoDisponibleException {
         if (verificarFuncion(nuevaFuncion.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una funcion registrada con el código " + nuevaFuncion.getCodigo());
         }
         // Validar que la sala esté disponible
         if (nuevaFuncion.getSala().getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
-            System.out.println("No se puede programar función en una sala fuera de servicio.");
-            return false;
+            throw new SalaNoDisponibleException("La sala " + nuevaFuncion.getSala() + " Esta Fuera de Servicio");
         }
         listaFunciones.add(nuevaFuncion);
         return true;
@@ -231,7 +244,7 @@ public class Cine {
 
     public void modificarFuncion(String codigo, Pelicula nuevaPelicula, LocalDate nuevaFecha, LocalTime nuevaHora, double nuevoValorBase){
         if(!verificarFuncion(codigo)){
-            System.out.println("No puedes modificar una pelicula que no existe");
+            System.out.println("No puedes modificar una funcion que no existe");
             return;
         }
         for(Funcion funcion : listaFunciones){
@@ -255,11 +268,16 @@ public class Cine {
     }
 
     public void consultarFuncionesPorFecha(LocalDate fecha){
+        boolean hayFunciones = false;
         for(Funcion funcion : listaFunciones){
-            if(funcion.getFecha() == fecha){
+            if(funcion.getFecha().equals(fecha)){
                 System.out.println(funcion.toString());
                 System.out.println("------------------------");
+                hayFunciones = true;
             }
+        }
+        if (!hayFunciones){
+            System.out.println("No hay funciones en esa fecha");
         }
     }
 
@@ -272,9 +290,9 @@ public class Cine {
     }
 
     //CLIENTES
-    public boolean registrarCliente(Cliente nuevoCliente){
+    public boolean registrarCliente(Cliente nuevoCliente) throws CodigoDuplicadoException{
         if (verificarCliente(nuevoCliente.getIdentificacion())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe un cliente registrado con el numero de identidad " + nuevoCliente.getIdentificacion());
         }
         listaClientes.add(nuevoCliente);
         return true;
@@ -300,9 +318,9 @@ public class Cine {
     }
 
     //EMPLEADO
-    public boolean registrarEmpleado(Empleado nuevoEmpleado){
+    public boolean registrarEmpleado(Empleado nuevoEmpleado) throws CodigoDuplicadoException {
         if (verificarEmpleado(nuevoEmpleado.getIdentificacion())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe un Empleado con el numero de identidad " + nuevoEmpleado.getIdentificacion());
         }
         listaEmpleados.add(nuevoEmpleado);
         return true;
@@ -328,10 +346,9 @@ public class Cine {
     }
 
     //VENTAS
-    public boolean registrarVenta(Venta nuevaVenta){
+    public boolean registrarVenta(Venta nuevaVenta) throws CodigoDuplicadoException{
         if (verificarVenta(nuevaVenta.getCodigo())) {
-            return false;
-        }
+            throw new CodigoDuplicadoException("Ya existe una venta registrada con el código " + nuevaVenta.getCodigo());        }
         listaVentas.add(nuevaVenta);
         return true;
     }
@@ -358,11 +375,19 @@ public class Cine {
 
     public Venta venderEntrada(String codigoVenta, String idCliente, String nombreCliente,
                                TipoCliente tipoCliente, String codigoFuncion,
-                               String codigoAsiento, Empleado empleado) {
+                               String codigoAsiento, Empleado empleado) throws CodigoDuplicadoException, FuncionNoEncontradaException, SinAsientosDisponiblesException, AsientoNoEncontradoException, AsientoOcupadoException{
+
+        if(verificarVenta(codigoVenta)){
+            throw new CodigoDuplicadoException("Ya existe una venta registrada con el código " + codigoVenta);
+        }
 
         Funcion funcion = buscarFuncion(codigoFuncion);
         if (funcion == null || funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
-            System.out.println("La función no existe o no está programada.");
+            throw new FuncionNoEncontradaException("La función no existe o no está programada.");
+        }
+
+        if (!funcion.verificarDisponibilidadAsientos()){
+            throw new SinAsientosDisponiblesException("No hay asientos disponibles de esta funcion");
         }
 
 
@@ -372,21 +397,14 @@ public class Cine {
             registrarCliente(cliente);
         }
 
-
-        Asiento asientoEncontrado = null;
-        for (Asiento asiento : funcion.getListaAsientos()) {
-            if (asiento.getCodigo().equalsIgnoreCase(codigoAsiento)) {
-                asientoEncontrado = asiento;
-                break;
-            }
-        }
+        Asiento asientoEncontrado = funcion.buscarAsiento(codigoAsiento);
 
         if (asientoEncontrado == null) {
-            System.out.println("El asiento especificado no existe en esta función.");
+            throw new AsientoNoEncontradoException("El asiento especificado no existe en esta función.");
         }
 
         if (asientoEncontrado.getEstadoAsiento() == EstadoAsiento.OCUPADO) {
-            System.out.println("El asiento ya se encuentra ocupado.");
+            throw new AsientoOcupadoException("El asiento ya se encuentra ocupado.");
         }
 
 
@@ -428,7 +446,7 @@ public class Cine {
         return nuevaVenta;
     }
 
-    public void cancelarVenta(String codigo){
+    public void cancelarVenta(String codigo) throws VentaNoEncontradaException{
         Venta venta = buscarVenta(codigo);
         if(venta != null && venta.getEstadoVenta() == EstadoVenta.ACTIVA){
             venta.setEstadoVenta(EstadoVenta.CANCELADA);
@@ -437,7 +455,7 @@ public class Cine {
             }
             System.out.println("Venta cancelada exitosamente y asiento liberado.");
         } else {
-            System.out.println("Venta no encontrada o ya estaba cancelada.");
+            throw new VentaNoEncontradaException("Venta no encontrada o ya estaba cancelada.");
         }
     }
 
@@ -483,10 +501,10 @@ public class Cine {
         }
         return masVendida;
     }
-    public void mostrarReporteOcupacionFuncion(String codigo){
+    public void mostrarReporteOcupacionFuncion(String codigo) throws FuncionNoEncontradaException{
         Funcion funcion = buscarFuncion(codigo);
         if(funcion == null){
-            return;
+            throw new FuncionNoEncontradaException("No existe la funcion con el código " + codigo);
         }
         System.out.println("--- REPORTE DE OCUPACIÓN: Función " + codigo + " ---");
         System.out.println("Película: " + funcion.getPelicula().getNombre());

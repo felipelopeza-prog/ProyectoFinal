@@ -12,9 +12,7 @@ public class Asiento {
 
     private List<Venta> listaVentas;
 
-    public Asiento(Sala sala, Funcion funcion, String codigo, int fila, int numero, EstadoAsiento estadoAsiento) {
-        this.sala = sala;
-        this.funcion = funcion;
+    public Asiento(String codigo, int fila, int numero, EstadoAsiento estadoAsiento) {
         this.codigo = codigo;
         this.fila = fila;
         this.numero = numero;

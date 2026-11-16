@@ -1,5 +1,6 @@
+import exceptions.AsientoOcupadoException;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,23 +122,70 @@ public class Funcion {
 
     //METODOS GENERALES DE FUNCION
     public Asiento buscarAsiento(String codigo){
+        if (codigo != null) {
+            for (Asiento asiento : listaAsientos) {
+                if (asiento.getCodigo().equalsIgnoreCase(codigo.trim())) {
+                    return asiento;
+                }
+            }
+        }
         return null;
     }
 
-    public void ocuparAsiento(String codigo){
-
+    public void ocuparAsiento(String codigo) throws IllegalArgumentException, AsientoOcupadoException{
+        Asiento asiento = buscarAsiento(codigo);
+        if (asiento == null) {
+            throw new IllegalArgumentException("El asiento " + codigo + " no existe en la sala " + sala.getNumero() + ".");
+        }
+        if (!asiento.verificarDisponibilidad()) {
+            throw new AsientoOcupadoException("El asiento " + codigo + " ya se encuentra ocupado para esta función.");
+        }
+        asiento.marcarAsientoOcupado();
     }
 
-    public void liberarAsiento(String codigo){
-
+    public void liberarAsiento(String codigo) throws IllegalArgumentException, AsientoOcupadoException{
+        Asiento asiento = buscarAsiento(codigo);
+        if (asiento == null) {
+            throw new IllegalArgumentException("El asiento " + codigo + " no existe en la sala " + sala.getNumero() + ".");
+        }
+        if (asiento.verificarDisponibilidad()) {
+            throw new AsientoOcupadoException("El asiento " + codigo + " ya se encuentra libre para esta función.");
+        }
+        asiento.marcarAsientoDisponible();
     }
 
     public int contarAsientosDisponibles(){
-        return 0;
+        int asientosDisponibles = 0;
+        for (Asiento asiento : listaAsientos) {
+            if (asiento.verificarDisponibilidad()) {
+                asientosDisponibles++;
+            }
+        }
+        return asientosDisponibles;
+    }
+
+    public int contarAsientosOcupados(){
+        int asientosOcupados = 0;
+        for (Asiento asiento : listaAsientos) {
+            if (!asiento.verificarDisponibilidad()) {
+                asientosOcupados++;
+            }
+        }
+        return asientosOcupados;
     }
 
     public boolean verificarDisponibilidadAsientos(){
         return contarAsientosDisponibles() > 0;
     }
 
+    public void finalizarFuncion(){
+        setEstadoFuncion(EstadoFuncion.FINALIZADA);
+    }
+    public void cancelarFuncion(){
+        setEstadoFuncion(EstadoFuncion.FINALIZADA);
+    }
+
+    public boolean estaProgramada(){
+        return this.estadoFuncion == EstadoFuncion.PROGRAMADA;
+    }
 }

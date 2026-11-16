@@ -85,14 +85,13 @@ public class Pelicula {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", genero=" + genero +
-                ", duracionMinutos=" + duracionMinutos +
-                ", clasificacion=" + clasificacion +
-                ", estadoPelicula=" + estadoPelicula +
-                '}';
+        return "--- Pelicula ---" +
+                "\ncodigo: " + codigo +
+                "\nnombre: " + nombre +
+                "\ngenero: " + genero +
+                "\nduracion en Minutos: " + duracionMinutos +
+                "\nclasificacion: " + clasificacion +
+                "\nestado de la Pelicula: " + estadoPelicula;
     }
 
     //METODOS GENEREALES DE PELICULA
