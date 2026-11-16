@@ -129,22 +129,27 @@ public class Aplicacion {
                     String identificacionCliente = "";
                     boolean existeCliente;
                     Cliente cliente = null;
-                    do{
-                        if(identificacionCliente.equals("0")){
+                    do {
+                        System.out.print("Ingrese identificación del cliente (0 para salir): ");
+                        identificacionCliente = sc.nextLine();
+
+                        if (identificacionCliente.equals("0")) {
                             break;
                         }
-                        System.out.print("Ingrese identificación del cliente: ");
-                        identificacionCliente = sc.nextLine();
+
                         existeCliente = cine.verificarCliente(identificacionCliente);
-                        if(!existeCliente){
-                            System.out.println("No existe un cliente con esta identificación en el cine. Ingrese una identificacion valida o ingrese 0 para salir al menu");
-                            continue;
+
+                        if (!existeCliente) {
+                            System.out.println("No existe un cliente con esta identificación.");
                         }
-                        cliente = cine.buscarCliente(identificacionCliente);
-                    }while(existeCliente);
-                    if(identificacionCliente.equals("0")){
+
+                    } while (!existeCliente);
+
+                    if (identificacionCliente.equals("0")) {
                         break;
                     }
+
+                    cliente = cine.buscarCliente(identificacionCliente);
 
                     System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
                     int tipoOpcion = Integer.parseInt(sc.nextLine());
@@ -155,16 +160,16 @@ public class Aplicacion {
                     else if (tipoOpcion == 4) tipoCliente = TipoCliente.ADULTO_MAYOR;
 
                     System.out.print("Ingrese el código de la función: ");
-                    String codigoFuncion = sc.nextLine();
+                    String codigoFuncionion = sc.nextLine();
 
                     System.out.print("Ingrese el código del asiento (ej. A1): ");
                     String codigoAsiento = sc.nextLine();
 
-                    String codVenta = "V-" + System.currentTimeMillis();
+                    String codigoVenta = "V-" + System.currentTimeMillis();
 
                     assert cliente != null;
-                    Venta nuevaVenta = cine.venderEntrada(codVenta, identificacionCliente, cliente.getNombre(), tipoCliente,
-                            codigoFuncion, codigoAsiento, empleadoActual
+                    Venta nuevaVenta = cine.venderEntrada(codigoVenta, identificacionCliente, cliente.getNombre(), tipoCliente,
+                            codigoFuncionion, codigoAsiento, empleadoActual
                     );
 
                     System.out.println("\n¡Venta realizada con éxito!");
@@ -206,37 +211,35 @@ public class Aplicacion {
                         System.out.println("Opción inválida.");
                     }
                     break;
-                case 4:
-                    System.out.println("\n--- MÓDULO DE CONSULTA DE FUNCIONES ---");
-                    System.out.println("1. Ver todas las funciones");
+                    case 4:
+                    System.out.println("--- MÓDULO DE CONSULTA DE FUNCIONES ---");
+                    System.out.println("1. Ver todas las funciones programadas");
                     System.out.println("2. Consultar funciones por fecha");
                     System.out.println("3. Buscar función por código");
                     System.out.print("Seleccione una opción: ");
 
-                    int opcionFunc = Integer.parseInt(sc.nextLine());
+                    int opcionFuncion = Integer.parseInt(sc.nextLine());
 
-                    if (opcionFunc == 1) {
-                        System.out.println("\n--- LISTADO GENERAL DE FUNCIONES ---");
-                        cine.consultarFunciones();
+                    if (opcionFuncion == 1) {
+                        System.out.println("--- LISTADO DE FUNCIONES PROGRAMADAS ---");
+                        cine.consultarFuncionesProgramadas();
 
-                    } else if (opcionFunc == 2) {
-                        System.out.print("Ingrese la fecha (Formato AAAA-MM-DD, ej. 2026-11-20): ");
-                        String fechaStr = sc.nextLine();
-                        LocalDate fechaConsulta = LocalDate.parse(fechaStr);
+                    } else if (opcionFuncion == 2) {
+                        System.out.print("Ingrese la fecha (Formato AAAA-MM-DD, ejemplo: 2026-11-20): ");
+                        String fecha = sc.nextLine();
+                        LocalDate fechaConsulta = LocalDate.parse(fecha);
 
-                        System.out.println("\n--- FUNCIONES PARA LA FECHA: " + fechaStr + " ---");
+                        System.out.println("--- FUNCIONES PARA LA FECHA: " + fecha + " ---");
                         cine.consultarFuncionesPorFecha(fechaConsulta);
 
-                    } else if (opcionFunc == 3) {
+                    } else if (opcionFuncion == 3) {
                         System.out.print("Ingrese el código de la función: ");
-                        String codigoFunc = sc.nextLine();
+                        String codigoFuncion = sc.nextLine();
 
-                        Funcion funcionEncontrada = cine.buscarFuncion(codigoFunc);
+                        Funcion funcionEncontrada = cine.buscarFuncion(codigoFuncion);
                         if (funcionEncontrada != null) {
-                            System.out.println("\n¡Función encontrada!");
+                            System.out.println("Función encontrada correctamente");
                             System.out.println(funcionEncontrada.toString());
-                        } else {
-                            System.out.println("No se encontró ninguna función con el código ingresado.");
                         }
                     } else {
                         System.out.println("Opción inválida.");
