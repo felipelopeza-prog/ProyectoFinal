@@ -244,7 +244,7 @@ public class Cine {
 
     public void modificarFuncion(String codigo, Pelicula nuevaPelicula, LocalDate nuevaFecha, LocalTime nuevaHora, double nuevoValorBase){
         if(!verificarFuncion(codigo)){
-            System.out.println("No puedes modificar una pelicula que no existe");
+            System.out.println("No puedes modificar una funcion que no existe");
             return;
         }
         for(Funcion funcion : listaFunciones){
@@ -270,7 +270,7 @@ public class Cine {
     public void consultarFuncionesPorFecha(LocalDate fecha){
         boolean hayFunciones = false;
         for(Funcion funcion : listaFunciones){
-            if(funcion.getFecha() == fecha){
+            if(funcion.getFecha().equals(fecha)){
                 System.out.println(funcion.toString());
                 System.out.println("------------------------");
                 hayFunciones = true;
