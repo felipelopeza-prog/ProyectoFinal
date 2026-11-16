@@ -378,11 +378,19 @@ public class Cine {
 
     public Venta venderEntrada(String codigoVenta, String idCliente, String nombreCliente,
                                TipoCliente tipoCliente, String codigoFuncion,
-                               String codigoAsiento, Empleado empleado){
+                               String codigoAsiento, Empleado empleado) throws CodigoDuplicadoException, FuncionNoEncontradaException, SinAsientosDisponiblesException, AsientoNoEncontradoException, AsientoOcupadoException{
+
+        if(verificarVenta(codigoVenta)){
+            throw new CodigoDuplicadoException("Ya existe una venta registrada con el código " + codigoVenta);
+        }
 
         Funcion funcion = buscarFuncion(codigoFuncion);
         if (funcion == null || funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
-            System.out.println("La función no existe o no está programada.");
+            throw new FuncionNoEncontradaException("La función no existe o no está programada.");
+        }
+
+        if (!funcion.verificarDisponibilidadAsientos()){
+            throw new SinAsientosDisponiblesException("No hay asientos disponibles de esta funcion");
         }
 
 
@@ -392,21 +400,14 @@ public class Cine {
             registrarCliente(cliente);
         }
 
-
-        Asiento asientoEncontrado = null;
-        for (Asiento asiento : funcion.getListaAsientos()) {
-            if (asiento.getCodigo().equalsIgnoreCase(codigoAsiento)) {
-                asientoEncontrado = asiento;
-                break;
-            }
-        }
+        Asiento asientoEncontrado = funcion.buscarAsiento(codigoAsiento);
 
         if (asientoEncontrado == null) {
-            System.out.println("El asiento especificado no existe en esta función.");
+            throw new AsientoNoEncontradoException("El asiento especificado no existe en esta función.");
         }
 
         if (asientoEncontrado.getEstadoAsiento() == EstadoAsiento.OCUPADO) {
-            System.out.println("El asiento ya se encuentra ocupado.");
+            throw new AsientoOcupadoException("El asiento ya se encuentra ocupado.");
         }
 
 
