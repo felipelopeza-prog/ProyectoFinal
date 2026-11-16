@@ -14,6 +14,7 @@ public class Sala {
     private List<Funcion> listaFunciones;
 
     public Sala(Cine cine, String codigo, int numero, int filas, int columnas) {
+        this.cine = cine;
         this.codigo = codigo;
         this.numero = numero;
         this.capacidad = filas*columnas;
