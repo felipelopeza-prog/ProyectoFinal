@@ -792,7 +792,7 @@ public class Aplicacion {
                         if(tipoOpcion == 2){
                             tipoCliente = TipoCliente.ESTUDIANTE;
                         } else if (tipoOpcion == 3){
-                            tipoCliente = TipoCliente.NINO;
+                            tipoCliente = TipoCliente.NINIO;
                         } else if (tipoOpcion == 4){
                             tipoCliente = TipoCliente.ADULTO_MAYOR;
                         } else {
