@@ -449,7 +449,7 @@ public class Cine {
         return nuevaVenta;
     }
 
-    public void cancelarVenta(String codigo){
+    public void cancelarVenta(String codigo) throws VentaNoEncontradaException{
         Venta venta = buscarVenta(codigo);
         if(venta != null && venta.getEstadoVenta() == EstadoVenta.ACTIVA){
             venta.setEstadoVenta(EstadoVenta.CANCELADA);
@@ -458,7 +458,7 @@ public class Cine {
             }
             System.out.println("Venta cancelada exitosamente y asiento liberado.");
         } else {
-            System.out.println("Venta no encontrada o ya estaba cancelada.");
+            throw new VentaNoEncontradaException("Venta no encontrada o ya estaba cancelada.");
         }
     }
 
