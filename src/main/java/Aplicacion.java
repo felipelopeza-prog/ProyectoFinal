@@ -111,6 +111,8 @@ public class Aplicacion {
             System.out.println("8.  Administrar salas");
             System.out.println("9.  Generar reportes");
             System.out.println("10. Cambiar de usuario");
+            System.out.println("11. Registrar cliente");
+            System.out.println("12. Registrar empleado");
             System.out.println("0. Salir");
 
 
@@ -121,14 +123,28 @@ public class Aplicacion {
 
 
             switch (opcion) {
-                case 1:
+                case 1: {
                     System.out.println("\n--- MÓDULO DE VENTA DE ENTRADAS ---");
 
-                    System.out.print("Ingrese identificación del cliente: ");
-                    String identificacionCliente = sc.nextLine();
-
-                    System.out.print("Ingrese nombre del cliente: ");
-                    String nombreCliente = sc.nextLine();
+                    String identificacionCliente = "";
+                    boolean existeCliente;
+                    Cliente cliente = null;
+                    do{
+                        if(identificacionCliente.equals("0")){
+                            break;
+                        }
+                        System.out.print("Ingrese identificación del cliente: ");
+                        identificacionCliente = sc.nextLine();
+                        existeCliente = cine.verificarCliente(identificacionCliente);
+                        if(!existeCliente){
+                            System.out.println("No existe un cliente con esta identificación en el cine. Ingrese una identificacion valida o ingrese 0 para salir al menu");
+                            continue;
+                        }
+                        cliente = cine.buscarCliente(identificacionCliente);
+                    }while(existeCliente);
+                    if(identificacionCliente.equals("0")){
+                        break;
+                    }
 
                     System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
                     int tipoOpcion = Integer.parseInt(sc.nextLine());
@@ -146,7 +162,8 @@ public class Aplicacion {
 
                     String codVenta = "V-" + System.currentTimeMillis();
 
-                    Venta nuevaVenta = cine.venderEntrada(codVenta, identificacionCliente, nombreCliente, tipoCliente,
+                    assert cliente != null;
+                    Venta nuevaVenta = cine.venderEntrada(codVenta, identificacionCliente, cliente.getNombre(), tipoCliente,
                             codigoFuncion, codigoAsiento, empleadoActual
                     );
 
@@ -154,6 +171,7 @@ public class Aplicacion {
                     System.out.println("Código de Venta: " + nuevaVenta.getCodigo());
                     System.out.println("Valor Pagado: $" + nuevaVenta.getValorPagado());
                     break;
+                }
                 case 2:
                     System.out.println("\n--- MÓDULO DE CANCELACIÓN DE VENTA ---");
                     System.out.print("Ingrese el código de la venta que desea cancelar: ");
