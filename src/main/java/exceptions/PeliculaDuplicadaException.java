@@ -1,3 +1,5 @@
+package exceptions;
+
 public class PeliculaDuplicadaException extends Exception {
 
     public PeliculaDuplicadaException(String mensaje) {
