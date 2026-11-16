@@ -49,7 +49,7 @@ public class Aplicacion {
 
         cine.registrarCliente(new Cliente(cine, "1001", "Ana Gómez", TipoCliente.GENERAL));
         cine.registrarCliente(new Cliente(cine, "1002", "Luis Pérez", TipoCliente.ESTUDIANTE));
-        cine.registrarCliente(new Cliente(cine, "1003", "Sofía Ruiz", TipoCliente.NINO));
+        cine.registrarCliente(new Cliente(cine, "1003", "Sofía Ruiz", TipoCliente.NINIO));
         cine.registrarCliente(new Cliente(cine, "1004", "Marta Díaz", TipoCliente.ADULTO_MAYOR));
         //Empleados 1 de cada 1
 
@@ -117,7 +117,7 @@ public class Aplicacion {
 
                     TipoCliente tipoCliente = TipoCliente.GENERAL;
                     if (tipoOpcion == 2) tipoCliente = TipoCliente.ESTUDIANTE;
-                    else if (tipoOpcion == 3) tipoCliente = TipoCliente.NINO;
+                    else if (tipoOpcion == 3) tipoCliente = TipoCliente.NINIO;
                     else if (tipoOpcion == 4) tipoCliente = TipoCliente.ADULTO_MAYOR;
 
                     System.out.print("Ingrese el código de la función: ");

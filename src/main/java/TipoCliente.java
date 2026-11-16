@@ -11,7 +11,7 @@ public enum TipoCliente implements Tarifa{
             return valorBase * 0.80;
         }
     },
-    NINO{
+    NINIO{
         @Override
         public double calcularValorEntrada(double valorBase) {
             return valorBase * 0.65;
