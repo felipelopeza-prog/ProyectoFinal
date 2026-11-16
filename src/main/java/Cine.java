@@ -87,9 +87,9 @@ public class Cine {
     }
 
     //PELICULAS
-    public boolean registrarPelicula(Pelicula nuevaPelicula){
+    public boolean registrarPelicula(Pelicula nuevaPelicula) throws CodigoDuplicadoException{
         if (verificarPelicula(nuevaPelicula.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una película registrada con el código " + nuevaPelicula.getCodigo());
         }
         listaPeliculas.add(nuevaPelicula);
         return true;
@@ -144,9 +144,9 @@ public class Cine {
     }
 
     //SALAS
-    public boolean registrarSala(Sala nuevaSala){
+    public boolean registrarSala(Sala nuevaSala) throws CodigoDuplicadoException{
         if (verificarSala(nuevaSala.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una sala registrada con el código " + nuevaSala.getCodigo());
         }
         listaSalas.add(nuevaSala);
         return true;
@@ -212,14 +212,13 @@ public class Cine {
     }
 
     //FUNCIONES
-    public boolean registrarFuncion(Funcion nuevaFuncion){
+    public boolean registrarFuncion(Funcion nuevaFuncion) throws CodigoDuplicadoException, SalaNoDisponibleException{
         if (verificarFuncion(nuevaFuncion.getCodigo())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe una funcion registrada con el código " + nuevaFuncion.getCodigo());
         }
         // Validar que la sala esté disponible
         if (nuevaFuncion.getSala().getEstadoSala() == EstadoSala.FUERA_SERVICIO) {
-            System.out.println("No se puede programar función en una sala fuera de servicio.");
-            return false;
+            throw new SalaNoDisponibleException("La sala " + nuevaFuncion.getSala() + " Esta Fuera de Servicio");
         }
         listaFunciones.add(nuevaFuncion);
         return true;
@@ -292,9 +291,9 @@ public class Cine {
     }
 
     //CLIENTES
-    public boolean registrarCliente(Cliente nuevoCliente){
+    public boolean registrarCliente(Cliente nuevoCliente) throws CodigoDuplicadoException{
         if (verificarCliente(nuevoCliente.getIdentificacion())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe un cliente registrado con el numero de identidad " + nuevoCliente.getIdentificacion());
         }
         listaClientes.add(nuevoCliente);
         return true;
@@ -348,10 +347,9 @@ public class Cine {
     }
 
     //VENTAS
-    public boolean registrarVenta(Venta nuevaVenta){
+    public boolean registrarVenta(Venta nuevaVenta) throws CodigoDuplicadoException{
         if (verificarVenta(nuevaVenta.getCodigo())) {
-            return false;
-        }
+            throw new CodigoDuplicadoException("Ya existe una venta registrada con el código " + nuevaVenta.getCodigo());        }
         listaVentas.add(nuevaVenta);
         return true;
     }
@@ -378,7 +376,7 @@ public class Cine {
 
     public Venta venderEntrada(String codigoVenta, String idCliente, String nombreCliente,
                                TipoCliente tipoCliente, String codigoFuncion,
-                               String codigoAsiento, Empleado empleado) {
+                               String codigoAsiento, Empleado empleado){
 
         Funcion funcion = buscarFuncion(codigoFuncion);
         if (funcion == null || funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
