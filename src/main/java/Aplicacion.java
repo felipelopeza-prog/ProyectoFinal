@@ -245,6 +245,11 @@ public class Aplicacion {
                     }
                     break;
                 case 5:
+                    System.out.println("\n--- MÓDULO DE CONSULTA DE DISPONIBILIDAD ---");
+                    System.out.print("Ingrese el código de la función: ");
+                    String codigoFuncionDisponibilidad = sc.nextLine();
+
+                    cine.mostrarReporteOcupacionFuncion(codigoFuncionDisponibilidad);
                     break;
 
                 case 6: {
