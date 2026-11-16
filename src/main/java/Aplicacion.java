@@ -126,7 +126,6 @@ public class Aplicacion {
                     System.out.println("\n--- MÓDULO DE VENTA DE ENTRADAS ---");
 
                     String identificacionCliente = "";
-                    boolean existeCliente;
                     Cliente cliente = null;
                     do {
                         System.out.print("Ingrese identificación del cliente (0 para salir): ");
@@ -136,38 +135,78 @@ public class Aplicacion {
                             break;
                         }
 
-                        existeCliente = cine.verificarCliente(identificacionCliente);
-
-                        if (!existeCliente) {
-                            System.out.println("No existe un cliente con esta identificación.");
-                        }
                         cliente = cine.buscarCliente(identificacionCliente);
-                    }while(existeCliente);
-                    if(identificacionCliente.equals("0")){
+                    } while (cliente == null);
+
+                    if (identificacionCliente.equals("0")) {
                         break;
                     }
 
-                    cliente = cine.buscarCliente(identificacionCliente);
+                    int tipoOpcion = 0;
+                    do {
+                        System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
+                        tipoOpcion = Integer.parseInt(sc.nextLine());
 
-                    System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
-                    int tipoOpcion = Integer.parseInt(sc.nextLine());
+                        if (tipoOpcion < 1 || tipoOpcion > 4) {
+                            System.out.println("Opción inválida. Debe seleccionar un número entre 1 y 4.");
+                        }
+                    } while (tipoOpcion < 1 || tipoOpcion > 4);
 
                     TipoCliente tipoCliente = TipoCliente.GENERAL;
                     if (tipoOpcion == 2) tipoCliente = TipoCliente.ESTUDIANTE;
                     else if (tipoOpcion == 3) tipoCliente = TipoCliente.NINIO;
                     else if (tipoOpcion == 4) tipoCliente = TipoCliente.ADULTO_MAYOR;
 
-                    System.out.print("Ingrese el código de la función: ");
-                    String codigoFuncionion = sc.nextLine();
 
-                    System.out.print("Ingrese el código del asiento (ej. A1): ");
-                    String codigoAsiento = sc.nextLine();
+                    String codigoFuncion = "";
+                    Funcion funcion = null;
+                    do {
+                        System.out.print("Ingrese el código de la función (0 para salir): ");
+                        codigoFuncion = sc.nextLine();
+
+                        if (codigoFuncion.equals("0")) {
+                            break;
+                        }
+
+                        funcion = cine.buscarFuncion(codigoFuncion);
+                        if (funcion != null && funcion.getEstadoFuncion() != EstadoFuncion.PROGRAMADA) {
+                            System.out.println("Esa función no está programada para venta.");
+                            funcion = null;
+                        }
+                    } while (funcion == null);
+
+                    if (codigoFuncion.equals("0")) {
+                        break;
+                    }
+
+                    String codigoAsiento = "";
+                    Asiento asiento = null;
+                    do {
+                        System.out.print("Ingrese el código del asiento (ejemplo. A1) (0 para salir): ");
+                        codigoAsiento = sc.nextLine();
+
+                        if (codigoAsiento.equals("0")) {
+                            break;
+                        }
+
+                        asiento = funcion.buscarAsiento(codigoAsiento);
+                        if (asiento == null) {
+                            System.out.println("El asiento no existe en esta función.");
+                        } else if (asiento.getEstadoAsiento() == EstadoAsiento.OCUPADO) {
+                            System.out.println("El asiento ya está ocupado. Elija otro.");
+                            asiento = null;
+                        }
+                    } while (asiento == null);
+
+                    if (codigoAsiento.equals("0")) {
+                        break;
+                    }
+
 
                     String codigoVenta = "V-" + System.currentTimeMillis();
 
-                    assert cliente != null;
-                    Venta nuevaVenta = cine.venderEntrada(codigoVenta, identificacionCliente, cliente.getNombre(), tipoCliente,
-                            codigoFuncionion, codigoAsiento, empleadoActual
+                    Venta nuevaVenta = cine.venderEntrada(codigoVenta, identificacionCliente, cliente.getNombre(),
+                            tipoCliente, codigoFuncion, codigoAsiento, empleadoActual
                     );
 
                     System.out.println("Venta realizada con éxito");
