@@ -1,3 +1,5 @@
+import exceptions.AccesoDenegadoException;
+
 import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
@@ -6,6 +8,8 @@ public class Aplicacion {
     private static Empleado empleadoActual = null;
 
     public static void main (String [] args){
+
+        Scanner sc = new Scanner(System.in);
 
         Cine cine = new Cine("CINEMAUQ", "900.123.456-1");
         //Peliculas que hay
@@ -59,13 +63,37 @@ public class Aplicacion {
         cine.registrarEmpleado(new Empleado(cine, "2002", "Laura Operadora", "operador", "5678", RolEmpleado.OPERADOR));
 
 
+        System.out.println("Bienvenido al menu operativo de " + cine.getNombre());
 
+        String identificacionEmpleado;
+        boolean existeEmpleado = false;
+        do {
+            System.out.print("Ingresa tu numero de identificacion: ");
+            identificacionEmpleado = sc.nextLine();
 
+            existeEmpleado = cine.verificarEmpleado(identificacionEmpleado);
 
+            if(!existeEmpleado){
+                System.out.println("El empleado con esta identificacion no existe, ingresa una identificacion valida");
+            }
+        } while(!existeEmpleado);
 
+        empleadoActual = cine.buscarEmpleado(identificacionEmpleado);
 
+        String usuario;
+        String contrasenia;
+        boolean validarUsuarioContrasenia = false;
+        do {
+            System.out.print("Ingresa tu usuario: ");
+            usuario = sc.nextLine();
 
-        Scanner sc = new Scanner(System.in);
+            System.out.print("Ingresa tu contrasenia: ");
+            contrasenia = sc.nextLine();
+
+            validarUsuarioContrasenia = empleadoActual.validarUsuarioContrasenia(usuario, contrasenia);
+
+        } while(!validarUsuarioContrasenia);
+
         int opcion;
         do {
             System.out.println("\n======        MENU        ======");
@@ -178,6 +206,10 @@ public class Aplicacion {
 
                 case 6: {
                     //Administrar peliculas
+                    if (empleadoActual.getRolEmpleado() != RolEmpleado.ADMINISTRADOR){
+                        System.out.println("No tiene acceso permitido a esta opcion. Solo el administrador puede ingresar a esta opcion");
+                        break;
+                    }
                     int opPeliculas;
                     do {
                         System.out.println("\n--- ADMINISTRAR PELÍCULAS ---");
@@ -314,6 +346,10 @@ public class Aplicacion {
                     break;
                 }
                 case 7: {
+                    if (empleadoActual.getRolEmpleado() != RolEmpleado.ADMINISTRADOR){
+                        System.out.println("No tiene acceso permitido a esta opcion. Solo el administrador puede ingresar a esta opcion");
+                        break;
+                    }
                     int opFunciones;
                     do {
                         System.out.println("\n--- ADMINISTRAR FUNCIONES ---");
@@ -461,6 +497,10 @@ public class Aplicacion {
                     break;
                 }
                 case 8: {
+                    if (empleadoActual.getRolEmpleado() != RolEmpleado.ADMINISTRADOR){
+                        System.out.println("No tiene acceso permitido a esta opcion. Solo el administrador puede ingresar a esta opcion");
+                        break;
+                    }
                     int opSalas;
                     do {
                         System.out.println("\n--- ADMINISTRAR SALAS ---");
@@ -599,6 +639,10 @@ public class Aplicacion {
                     break;
                     }
                 case 9: {
+                    if (empleadoActual.getRolEmpleado() != RolEmpleado.ADMINISTRADOR){
+                        System.out.println("No tiene acceso permitido a esta opcion. Solo el administrador puede ingresar a esta opcion");
+                        break;
+                    }
                     int opcionReporte;
                     do {
                         System.out.println("\n--- REPORTES ---");
@@ -686,6 +730,7 @@ public class Aplicacion {
                 case 10:
 
                     System.out.println("Programa finalizado.....");
+                    opcion = 0;
                     break;
                 default:
                     System.out.println( "\u001B[31m Opción no válida.\u001B[0m");
