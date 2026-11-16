@@ -3,10 +3,7 @@ import exceptions.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Cine {
 
@@ -321,9 +318,9 @@ public class Cine {
     }
 
     //EMPLEADO
-    public boolean registrarEmpleado(Empleado nuevoEmpleado){
+    public boolean registrarEmpleado(Empleado nuevoEmpleado) throws CodigoDuplicadoException {
         if (verificarEmpleado(nuevoEmpleado.getIdentificacion())) {
-            return false;
+            throw new CodigoDuplicadoException("Ya existe un Empleado con el numero de identidad " + nuevoEmpleado.getIdentificacion());
         }
         listaEmpleados.add(nuevoEmpleado);
         return true;
