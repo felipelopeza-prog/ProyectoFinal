@@ -1,3 +1,5 @@
+import exceptions.*;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -87,7 +89,7 @@ public class Cine {
     }
 
     //PELICULAS
-    public boolean registrarPelicula(Pelicula nuevaPelicula) throws CodigoDuplicadoException{
+    public boolean registrarPelicula(Pelicula nuevaPelicula) throws CodigoDuplicadoException {
         if (verificarPelicula(nuevaPelicula.getCodigo())) {
             throw new CodigoDuplicadoException("Ya existe una película registrada con el código " + nuevaPelicula.getCodigo());
         }
@@ -212,7 +214,7 @@ public class Cine {
     }
 
     //FUNCIONES
-    public boolean registrarFuncion(Funcion nuevaFuncion) throws CodigoDuplicadoException, SalaNoDisponibleException{
+    public boolean registrarFuncion(Funcion nuevaFuncion) throws CodigoDuplicadoException, SalaNoDisponibleException {
         if (verificarFuncion(nuevaFuncion.getCodigo())) {
             throw new CodigoDuplicadoException("Ya existe una funcion registrada con el código " + nuevaFuncion.getCodigo());
         }
