@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.time.LocalDate;
 public class Aplicacion {
     private static Empleado empleadoActual = null;
 
@@ -113,6 +114,40 @@ public class Aplicacion {
                     }
                     break;
                 case 4:
+                    System.out.println("\n--- MÓDULO DE CONSULTA DE FUNCIONES ---");
+                    System.out.println("1. Ver todas las funciones");
+                    System.out.println("2. Consultar funciones por fecha");
+                    System.out.println("3. Buscar función por código");
+                    System.out.print("Seleccione una opción: ");
+
+                    int opcionFunc = Integer.parseInt(sc.nextLine());
+
+                    if (opcionFunc == 1) {
+                        System.out.println("\n--- LISTADO GENERAL DE FUNCIONES ---");
+                        cine.consultarFunciones();
+
+                    } else if (opcionFunc == 2) {
+                        System.out.print("Ingrese la fecha (Formato AAAA-MM-DD, ej. 2026-11-20): ");
+                        String fechaStr = sc.nextLine();
+                        LocalDate fechaConsulta = LocalDate.parse(fechaStr);
+
+                        System.out.println("\n--- FUNCIONES PARA LA FECHA: " + fechaStr + " ---");
+                        cine.consultarFuncionesPorFecha(fechaConsulta);
+
+                    } else if (opcionFunc == 3) {
+                        System.out.print("Ingrese el código de la función: ");
+                        String codigoFunc = sc.nextLine();
+
+                        Funcion funcionEncontrada = cine.buscarFuncion(codigoFunc);
+                        if (funcionEncontrada != null) {
+                            System.out.println("\n¡Función encontrada!");
+                            System.out.println(funcionEncontrada.toString());
+                        } else {
+                            System.out.println("No se encontró ninguna función con el código ingresado.");
+                        }
+                    } else {
+                        System.out.println("Opción inválida.");
+                    }
                     break;
                 case 5:
                     break;
