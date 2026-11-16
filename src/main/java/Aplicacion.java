@@ -1,6 +1,3 @@
-import exceptions.AccesoDenegadoException;
-
-import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -91,6 +88,9 @@ public class Aplicacion {
             contrasenia = sc.nextLine();
 
             validarUsuarioContrasenia = empleadoActual.validarUsuarioContrasenia(usuario, contrasenia);
+            if(!validarUsuarioContrasenia){
+                System.out.println("No coincide con el empleado anteriormente identificado");
+            }
 
         } while(!validarUsuarioContrasenia);
 
@@ -111,7 +111,8 @@ public class Aplicacion {
             System.out.println("7.  Administrar funciones");
             System.out.println("8.  Administrar salas");
             System.out.println("9.  Generar reportes");
-            System.out.println("10. Salir");
+            System.out.println("10. Cambiar de usuario");
+            System.out.println("0. Salir");
 
 
 
@@ -727,10 +728,38 @@ public class Aplicacion {
                     } while(opcionReporte != 0);
                     break;
                 }
-                case 10:
 
+                case 10: {
+                    do {
+                        System.out.print("Ingresa tu numero de identificacion: ");
+                        identificacionEmpleado = sc.nextLine();
+
+                        existeEmpleado = cine.verificarEmpleado(identificacionEmpleado);
+
+                        if(!existeEmpleado){
+                            System.out.println("El empleado con esta identificacion no existe, ingresa una identificacion valida");
+                        }
+                    } while(!existeEmpleado);
+
+                    empleadoActual = cine.buscarEmpleado(identificacionEmpleado);
+
+                    do {
+                        System.out.print("Ingresa tu usuario: ");
+                        usuario = sc.nextLine();
+
+                        System.out.print("Ingresa tu contrasenia: ");
+                        contrasenia = sc.nextLine();
+
+                        validarUsuarioContrasenia = empleadoActual.validarUsuarioContrasenia(usuario, contrasenia);
+
+                        if(!validarUsuarioContrasenia){
+                            System.out.println("No coincide con el empleado anteriormente identificado");
+                        }
+
+                    } while(!validarUsuarioContrasenia);
+                }
+                case 0:
                     System.out.println("Programa finalizado.....");
-                    opcion = 0;
                     break;
                 default:
                     System.out.println( "\u001B[31m Opción no válida.\u001B[0m");

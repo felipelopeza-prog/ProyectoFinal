@@ -46,7 +46,7 @@ public class Empleado extends Persona {
                 return false;
             }
         } else {
-            System.out.println("Este usuario no existe en la base de datos de la empresa");
+            System.out.println("Usuario y contraseña invalidos");
             return false;
         }
     }
