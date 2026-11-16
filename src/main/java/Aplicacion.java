@@ -763,6 +763,109 @@ public class Aplicacion {
                         }
                     } while(!validarUsuarioContrasenia);
                 }
+                case 11: {
+                    System.out.print("Ingrese identificación del nuevo cliente: ");
+                    String identificacionNuevoCliente = "";
+                    boolean identificacionValida;
+                    do {
+                        if (identificacionNuevoCliente.equals("0")) {
+                            break;
+                        }
+                        identificacionNuevoCliente = sc.nextLine();
+                        identificacionValida = !cine.verificarCliente(identificacionNuevoCliente);
+                        if (!identificacionValida) {
+                            System.out.println("Ya existe un cliente con esta identificacion en la base de datos. Ingresa una identificacion valida o ingresa 0 para salir al menu principal");
+                        }
+                    } while (identificacionValida);
+                    if (identificacionNuevoCliente.equals("0")) {
+                        break;
+                    }
+                    System.out.print("Ingrese nombre del nuevo cliente: ");
+                    String nombreNuevoCliente = sc.nextLine();
+
+                    int tipoOpcion;
+                    TipoCliente tipoCliente = TipoCliente.GENERAL;
+                    do {
+                        System.out.println("Seleccione Tipo Cliente (1. GENERAL, 2. ESTUDIANTE, 3. NINO, 4. ADULTO_MAYOR): ");
+                        tipoOpcion = Integer.parseInt(sc.nextLine());
+
+                        if(tipoOpcion == 2){
+                            tipoCliente = TipoCliente.ESTUDIANTE;
+                        } else if (tipoOpcion == 3){
+                            tipoCliente = TipoCliente.NINO;
+                        } else if (tipoOpcion == 4){
+                            tipoCliente = TipoCliente.ADULTO_MAYOR;
+                        } else {
+                            System.out.println("Esta opcion no es valida. elige una opcion entre el 1 y 4");
+                        }
+                    }while(tipoOpcion < 1 || tipoOpcion > 4);
+
+                    cine.registrarCliente(new Cliente(cine, identificacionNuevoCliente, nombreNuevoCliente, tipoCliente));
+                    System.out.println("Registro de cliente exitoso");
+                    break;
+                } case 12:{
+                    System.out.print("Ingrese identificación del nuevo empleado: ");
+                    String identificacionNuevoEmpleado = "";
+                    boolean identificacionValida;
+                    do {
+                        if (identificacionNuevoEmpleado.equals("0")) {
+                            break;
+                        }
+                        identificacionNuevoEmpleado = sc.nextLine();
+                        identificacionValida = !cine.verificarEmpleado(identificacionNuevoEmpleado);
+                        if (!identificacionValida) {
+                            System.out.println("Ya existe un empleado con esta identificacion en la base de datos. Ingresa una identificacion valida o ingresa 0 para salir al menu principal");
+                        }
+                    } while (identificacionValida);
+                    if (identificacionNuevoEmpleado.equals("0")) {
+                        break;
+                    }
+                    System.out.print("Ingrese nombre del nuevo empleado: ");
+                    String nombreNuevoEmpleado = sc.nextLine();
+
+                    int tipoOpcion;
+                    RolEmpleado rolEmpleado = RolEmpleado.OPERADOR;
+                    do {
+                        System.out.println("Seleccione Rol Empleado (1. OPERADOR, 2. ADMINISTRADOR): ");
+                        tipoOpcion = Integer.parseInt(sc.nextLine());
+
+                        if(tipoOpcion == 2){
+                            rolEmpleado = RolEmpleado.ADMINISTRADOR;
+                        } else {
+                            System.out.println("Esta opcion no es valida. elige la opcion 1 o 2");
+                        }
+                    }while(tipoOpcion < 1 || tipoOpcion > 2);
+
+                    String usuarioNuevoEmpleado = "";
+                    boolean usuarioNuevoValido = false;
+                    do{
+                        System.out.print("Ingresa el nombre usuario del nuevo Empleado: ");
+                        usuarioNuevoEmpleado = sc.nextLine();
+                        for(Empleado empleado : cine.getListaEmpleados()){
+                            if(empleado.getUsuario().equals(usuarioNuevoEmpleado)){
+                                usuarioNuevoValido = true;
+                                break;
+                            }
+                        }
+                        if (!usuarioNuevoValido){
+                            System.out.println("Este usuario ya esta asociado a un empleado, ingresa un usuario diferente");
+                        }
+                    } while(!usuarioNuevoValido);
+
+                    String contraseniaNuevoEmpleado;
+                    do {
+                        System.out.println("Ingresa tu nueva contraseña (minimo 5 caracteres)");
+                        contraseniaNuevoEmpleado = sc.nextLine();
+
+                        if(contraseniaNuevoEmpleado.length() < 5){
+                            System.out.println("Contraseña invalida. Tu contraseña debe tener minimo 5 caracteres");
+                        }
+                    }while(contraseniaNuevoEmpleado.length() >= 5);
+
+                    cine.registrarEmpleado(new Empleado(cine, identificacionNuevoEmpleado, nombreNuevoEmpleado, usuarioNuevoEmpleado,contraseniaNuevoEmpleado, rolEmpleado));
+                    System.out.println("Registro de empleado exitoso");
+                    break;
+                }
                 case 0:
                     System.out.println("Programa finalizado.....");
                     break;
