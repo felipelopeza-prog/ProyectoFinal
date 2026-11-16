@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -597,8 +598,91 @@ public class Aplicacion {
                     } while (opSalas != 0);
                     break;
                     }
-                case 9:
+                case 9: {
+                    int opcionReporte;
+                    do {
+                        System.out.println("\n--- REPORTES ---");
+                        System.out.println("1. Total de entradas vendidas");
+                        System.out.println("2. Total de ingresos recaudados");
+                        System.out.println("3. Película con mayor cantidad de ventas");
+                        System.out.println("4. Ocupación de una función");
+                        System.out.println("5. Funciones programadas por fecha");
+                        System.out.println("6. Reporte General");
+                        System.out.println("0. Volver al menú principal");
+                        System.out.print("Opción: ");
+                        opcionReporte = sc.nextInt();
+                        sc.nextLine();
+
+                        switch (opcionReporte){
+                            case 1:{
+                                int totalEntradasVendidas = cine.obtenerTotalEntradasVendidas();
+                                System.out.println("Total de entradas vendidas: " + totalEntradasVendidas);
+                                break;
+                            }
+                            case 2:{
+                                double totalIngresos = cine.obtenerTotalIngresos();
+                                System.out.println("Total de Ingresos: " + totalIngresos);
+                                break;
+                            }
+                            case 3:{
+                                Pelicula pelicula = cine.obtenerPeliculaMasVendida();
+                                if(pelicula != null) {
+                                    System.out.println("===== PELICULA CON MAS VENTAS ====");
+                                    System.out.println(pelicula.toString());
+                                    break;
+                                }
+                                System.out.println("Aun no hay registradas ventas en el sistema");
+                                break;
+                            }
+                            case 4:{
+                                System.out.print("Ingresa el codigo de la Funcion: ");
+                                String codigo = sc.nextLine();
+                                cine.mostrarReporteOcupacionFuncion(codigo);
+                                break;
+                            }
+                            case 5:{
+                                System.out.print("Ingresa la fecha a consultar (Año-Mes-Dia): ");
+
+                                System.out.println("Año: ");
+                                int anio = sc.nextInt();
+
+                                System.out.println("Mes: ");
+                                int mes = sc.nextInt();
+
+                                System.out.println("Dia: ");
+                                int dia = sc.nextInt();
+
+                                LocalDate fecha = LocalDate.of(anio,mes,dia);
+                                cine.consultarFuncionesPorFecha(fecha);
+                                break;
+                            }
+                            case 6:{
+                                System.out.println("=== REPORTE GENERAL ===");
+                                int totalEntradasVendidas = cine.obtenerTotalEntradasVendidas();
+                                System.out.println("Total de entradas vendidas: " + totalEntradasVendidas);
+
+                                double totalIngresos = cine.obtenerTotalIngresos();
+                                System.out.println("Total de Ingresos: " + totalIngresos);
+
+                                Pelicula pelicula = cine.obtenerPeliculaMasVendida();
+                                if(pelicula != null) {
+                                    System.out.println("===== PELICULA CON MAS VENTAS ====");
+                                    System.out.println(pelicula.toString());
+                                }
+                                System.out.println("Aun no hay registradas ventas en el sistema");
+                                break;
+                            }
+                            case 0:{
+                                System.out.println("Volviendo al menú principal...");
+                                break;
+                            }
+                            default:
+                                System.out.println("Opción no válida");
+                                break;
+                        }
+                    } while(opcionReporte != 0);
                     break;
+                }
                 case 10:
 
                     System.out.println("Programa finalizado.....");

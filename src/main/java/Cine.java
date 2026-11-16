@@ -270,11 +270,16 @@ public class Cine {
     }
 
     public void consultarFuncionesPorFecha(LocalDate fecha){
+        boolean hayFunciones = false;
         for(Funcion funcion : listaFunciones){
             if(funcion.getFecha() == fecha){
                 System.out.println(funcion.toString());
                 System.out.println("------------------------");
+                hayFunciones = true;
             }
+        }
+        if (!hayFunciones){
+            System.out.println("No hay funciones en esa fecha");
         }
     }
 
