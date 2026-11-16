@@ -26,7 +26,6 @@ public class Aplicacion {
         cine.registrarSala(s1);
         cine.registrarSala(s2);
         cine.registrarSala(s3);
-        cine.deshabilitarSala("S3");
 
         //Funciones que hay
 

@@ -415,7 +415,7 @@ public class Cine {
 
             switch (tipoCliente) {
                 case ESTUDIANTE -> valorPagado *= 0.80; // 20% descuento
-                case NINO -> valorPagado *= 0.65;        // 35% descuento
+                case NINIO -> valorPagado *= 0.65;        // 35% descuento
                 case ADULTO_MAYOR -> valorPagado *= 0.75; // 25% descuento
                 default -> {} // GENERAL
             }
