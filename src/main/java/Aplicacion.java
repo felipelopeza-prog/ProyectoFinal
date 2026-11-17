@@ -136,6 +136,11 @@ public class Aplicacion {
                         }
 
                         cliente = cine.buscarCliente(identificacionCliente);
+                        if (cliente == null) {
+                            System.out.println("No existe un cliente con esta identificación. Intente de nuevo o ingrese 0 para salir.");
+                        }
+
+
                     } while (cliente == null);
 
                     if (identificacionCliente.equals("0")) {
@@ -935,8 +940,9 @@ public class Aplicacion {
                     }while(tipoOpcion < 1 || tipoOpcion > 2);
 
                     String usuarioNuevoEmpleado = "";
-                    boolean usuarioNuevoValido = true;
+                    boolean usuarioNuevoValido;
                     do{
+                        usuarioNuevoValido = true;
                         System.out.print("Ingresa el nombre usuario del nuevo Empleado: ");
                         usuarioNuevoEmpleado = sc.nextLine();
                         for(Empleado empleado : cine.getListaEmpleados()){
