@@ -181,11 +181,8 @@ public class Funcion {
     public void finalizarFuncion(){
         setEstadoFuncion(EstadoFuncion.FINALIZADA);
     }
-    public void cancelarFuncion(){
-        setEstadoFuncion(EstadoFuncion.FINALIZADA);
-    }
 
-    public boolean estaProgramada(){
+    public boolean marcarProgramada(){
         return this.estadoFuncion == EstadoFuncion.PROGRAMADA;
     }
 }

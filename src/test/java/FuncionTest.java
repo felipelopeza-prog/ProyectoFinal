@@ -36,7 +36,7 @@ public class FuncionTest {
 
     @Test
     void verificaEstadoInicialYDisponibilidad() {
-        assertTrue(funcion.estaProgramada());
+        assertTrue(funcion.marcarProgramada());
         assertTrue(funcion.verificarDisponibilidadAsientos());
     }
 

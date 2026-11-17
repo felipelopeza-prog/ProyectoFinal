@@ -10,7 +10,7 @@ public enum GeneroPelicula {
     AVENTURA,
     MUSICAL,
     DOCUMENTAL,
-    CINE_NEGRO;
+    CINE_NEGRO
 
 
 
