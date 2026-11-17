@@ -2,13 +2,6 @@ import java.time.LocalDateTime;
 
 public class Venta {
 
-//-código
-//-cliente
-//-función
-//-asiento
-//-fecha
-//-hora de venta
-//-valor pagado
     private Cine cine;
     private Cliente cliente;
     private Empleado empleado;
